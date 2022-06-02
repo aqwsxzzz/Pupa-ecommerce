@@ -2,11 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ProductModel } from "../../Models/Product";
 
 /* NEW PRODUCT */
-const newProduct = async <ExpressTypes>(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const newProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, image, price, description, type } = req.body;
 

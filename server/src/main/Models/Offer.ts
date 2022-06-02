@@ -1,19 +1,19 @@
 import { Schema, model } from "mongoose";
 
-interface Product {
+interface Offer {
   name: string;
   image: [];
   price: string;
+  quantity: string;
   description: string;
-  type: string;
 }
 
-const ProductSchema = new Schema<Product>({
+const OfferSchema = new Schema<Offer>({
   name: String,
   image: [],
   price: String,
+  quantity: String,
   description: String,
-  type: String,
 });
 
-export const ProductModel = model<Product>("Product", ProductSchema);
+export const OfferModel = model<Offer>("Offer", OfferSchema);
