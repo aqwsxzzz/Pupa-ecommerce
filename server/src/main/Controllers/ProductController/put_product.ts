@@ -5,14 +5,13 @@ import { Request, Response, NextFunction } from "express";
 
 const editProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, image, price, description, type } = req.body;
+    const { name, image, price, type } = req.body;
     const { id } = req.params;
 
     const product = await ProductModel.findByIdAndUpdate(id, {
       name,
       image,
       price,
-      description,
       type,
     });
 

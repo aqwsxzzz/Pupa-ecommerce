@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 interface Product {
   name: string;
-  image: [];
+  image: string;
   price: string;
   description: string;
   type: string;
@@ -10,9 +10,8 @@ interface Product {
 
 const ProductSchema = new Schema<Product>({
   name: String,
-  image: [],
+  image: String,
   price: String,
-  description: String,
   type: String,
 });
 

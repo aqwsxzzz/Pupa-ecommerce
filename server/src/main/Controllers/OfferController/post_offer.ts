@@ -4,14 +4,15 @@ import { OfferModel } from "../../Models/Offer";
 /* NEW OFFER */
 const newOffer = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, image, price, quantity, description } = req.body;
+    const { name, price, quantity, description } = req.body;
 
     const offer = new OfferModel({
       name,
-      image,
+      image: req.file?.path,
       price,
       quantity,
       description,
+      status: false,
     });
     await offer.save();
     return res.json(offer);

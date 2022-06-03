@@ -4,13 +4,12 @@ import { ProductModel } from "../../Models/Product";
 /* NEW PRODUCT */
 const newProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, image, price, description, type } = req.body;
+    const { name, price, type } = req.body;
 
     const product = new ProductModel({
       name,
-      image,
+      image: req.file?.path,
       price,
-      description,
       type,
     });
     await product.save();
