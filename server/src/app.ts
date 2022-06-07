@@ -11,7 +11,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-// require("dotenv").config();
 //require("./main/Passport/passport-local");
 //require("./main/Passport/jwt");
 
@@ -38,13 +37,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(
+/* app.use(
   session({
     secret: process.env.SESSION_SECRET as string,
     resave: false,
   })
 );
-
+ */
 //app.use(passport.initialize());
 //app.use(passport.session());
 
@@ -68,11 +67,11 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
 
 // import { send } from "./main/controllers/Schedule/SendEmail";
 // send();
-/* const port: any | number = process.env.PORT || 5000;
+const port: any | number = process.env.PORT || 5000;
 app.listen(port, () => {
-  job.start();
+  //job.start();
   // mailToUser();
   console.log(`server started on ${port}`);
 });
- */
+
 export { app };
