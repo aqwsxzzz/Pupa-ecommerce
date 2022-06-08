@@ -5,14 +5,15 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { router as indexRouter } from "./main/Routes/routes";
 import { Request, Response, NextFunction, Application } from "express";
-//import passport from "passport";
+
+import passport from "passport";
 import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-//require("./main/Passport/passport-local");
-//require("./main/Passport/jwt");
+require("./main/Passport/passport-local");
+require("./main/Passport/jwt");
 
 const app: Application = express();
 app.use(cors());
@@ -37,15 +38,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-/* app.use(
+app.use(
   session({
     secret: process.env.SESSION_SECRET as string,
     resave: false,
   })
 );
- */
-//app.use(passport.initialize());
-//app.use(passport.session());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", indexRouter);
 
