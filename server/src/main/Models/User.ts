@@ -6,3 +6,11 @@ interface User {
   email: string;
   type: string;
 }
+const UserSchema = new Schema<User>({
+  username: String,
+  password: String,
+  email: String,
+  type: String,
+});
+
+export const UserModel = model<User>("User", UserSchema);
