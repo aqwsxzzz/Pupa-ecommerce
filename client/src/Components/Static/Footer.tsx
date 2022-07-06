@@ -11,7 +11,7 @@ import logo from "../../Images/LogoBlackBG2.jpg";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
-import { ContactUsModal } from "../Modals/ContactUs";
+import { ContactUsModal } from "../Modals/ContactUsModal";
 
 export const StaticFooter: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,7 +47,7 @@ export const StaticFooter: React.FC = () => {
             py={"10%"}
           >
             <Text textColor={"white"} textAlign={"center"}>
-              Nuestros productos son 100% hechos a mano.
+              Nuestros productos son hechos 100% a mano.
             </Text>
             <Text textColor={"white"} textAlign={"center"}>
               Por consultas podes escribinos a nuestras redes sociales o

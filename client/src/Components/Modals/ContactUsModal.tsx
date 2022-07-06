@@ -14,7 +14,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { EmailIcon, ArrowForwardIcon, PhoneIcon } from "@chakra-ui/icons";
-import logo from "../../Images/2.jpeg";
 
 interface ModalProps {
   isOpen: boolean;
@@ -22,8 +21,12 @@ interface ModalProps {
 }
 
 export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  const CancelForm = () => {
+    onClose();
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalBody>
@@ -52,7 +55,7 @@ export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   borderTopLeftRadius={"none"}
                   borderBottomLeftRadius={"none"}
                   _hover={{ borderColor: "#B83280" }}
-                  textColor={"white"}
+                  _focusVisible={{ outline: "none" }}
                 />
               </Flex>
               <Flex pt={5}>
@@ -78,7 +81,7 @@ export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   borderTopLeftRadius={"none"}
                   borderBottomLeftRadius={"none"}
                   _hover={{ borderColor: "#B83280" }}
-                  textColor={"white"}
+                  _focusVisible={{ outline: "none" }}
                 />
               </Flex>
               <Flex pl={2.5} pt={5}>
@@ -101,7 +104,7 @@ export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   borderTopLeftRadius={"none"}
                   borderBottomLeftRadius={"none"}
                   _hover={{ borderColor: "#B83280" }}
-                  textColor={"white"}
+                  _focusVisible={{ outline: "none" }}
                 />
               </Flex>
               <Text textColor={"#B83280"} pt={5}>
@@ -122,7 +125,9 @@ export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   <Button mr={4} colorScheme={"green"}>
                     Enviar
                   </Button>
-                  <Button colorScheme={"red"}>Cancelar</Button>
+                  <Button colorScheme={"red"} onClick={CancelForm}>
+                    Cancelar
+                  </Button>
                 </Flex>
               </Box>
             </Flex>

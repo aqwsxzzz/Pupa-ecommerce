@@ -1,6 +1,10 @@
 import React from "react";
 import { Box, Flex, Image, Spacer, Text } from "@chakra-ui/react";
 import topImage from "../../Images/HomeCollage.jpg";
+import bolsaSemilla from "../../Images/BolsaSemillas1.jpeg";
+import bolsaLienzo1 from "../../Images/BolsaLienzo1.jpeg";
+import portaCarnet1 from "../../Images/PortaCarnet1.jpeg";
+import llaveros1 from "../../Images/Llaveros1.jpeg";
 
 export const Home: React.FC = () => {
   return (
@@ -19,10 +23,82 @@ export const Home: React.FC = () => {
         h={"350px"}
         border={1}
       >
-        <Box border={"1px"} w={"22.5%"}></Box>
-        <Box border={"1px"} w={"22.5%"}></Box>
-        <Box border={"1px"} w={"22.5%"}></Box>
-        <Box border={"1px"} w={"22.5%"}></Box>
+        <Box
+          border={"1px"}
+          maxH={"100%"}
+          w={"22.5%"}
+          style={{ overflow: "hidden" }}
+        >
+          <Text
+            position={"absolute"}
+            style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
+            pt={5}
+            fontWeight={"bold"}
+          >
+            SEMILLAS
+          </Text>
+          <Image
+            maxH={"100%"}
+            maxW={"100%"}
+            display={"block"}
+            src={bolsaSemilla}
+            style={{ overflow: "none" }}
+          />
+        </Box>
+        <Box border={"1px"} w={"22.5%"}>
+          <Text
+            position={"absolute"}
+            style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
+            pt={5}
+            fontWeight={"bold"}
+          >
+            LIENZO
+          </Text>
+
+          <Image
+            maxH={"100%"}
+            maxW={"100%"}
+            display={"block"}
+            src={bolsaLienzo1}
+            style={{ overflow: "none" }}
+          />
+        </Box>
+        <Box border={"1px"} w={"22.5%"}>
+          <Text
+            position={"absolute"}
+            style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
+            pt={5}
+            fontWeight={"bold"}
+          >
+            BEBES
+          </Text>
+
+          <Image
+            maxH={"100%"}
+            maxW={"100%"}
+            display={"block"}
+            src={portaCarnet1}
+            style={{ overflow: "none" }}
+          />
+        </Box>
+        <Box border={"1px"} w={"22.5%"}>
+          <Text
+            position={"absolute"}
+            style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
+            pt={5}
+            fontWeight={"bold"}
+          >
+            LLAVEROS
+          </Text>
+
+          <Image
+            maxH={"100%"}
+            maxW={"100%"}
+            display={"block"}
+            src={llaveros1}
+            style={{ overflow: "none" }}
+          />
+        </Box>
       </Flex>
     </Box>
   );
