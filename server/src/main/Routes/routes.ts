@@ -24,4 +24,10 @@ router.use(putOffer);
 router.use(delOffer);
 router.use(getOffer);
 
+/* USER */
+
+import { router as postUser } from "./User/post_user";
+
+router.use(postUser);
+
 export { router };

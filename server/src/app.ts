@@ -12,8 +12,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-require("./main/Passport/passport-local");
-require("./main/Passport/jwt");
+require("./main/Routes/Auth/auth");
+require("./main/Routes/Auth/jwt");
 
 const app: Application = express();
 app.use(cors());
