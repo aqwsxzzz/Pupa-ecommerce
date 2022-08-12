@@ -23,17 +23,19 @@ export const Pagination: React.FC = () => {
     limit: limit,
   });
   const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
+  const [pagesArray, setPagesArray] = useState<number[]>([]);
 
+  /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */
   const limitHandler = (e: any) => {
-    console.log(e.target.value);
-
     const value = e.target.value;
     setPagination({
       ...pagination,
       limit: value,
+      page: "1",
     });
   };
 
+  /* SET THE VALUE NEEDED TO BRING THE NEXT PAGINATION PAGE*/
   const nextPage = () => {
     let newPage = parseInt(pagination.page);
     newPage += 1;
@@ -43,6 +45,7 @@ export const Pagination: React.FC = () => {
     });
   };
 
+  /* SET TH VALUE NEEDED TO BRING THE PREVIOUS PAGINATION PAGE */
   const previousPage = () => {
     let newPage = parseInt(pagination.page);
     newPage -= 1;
@@ -52,11 +55,23 @@ export const Pagination: React.FC = () => {
     });
   };
 
+  /* REFETCH THE PAGINATION DATA EVERYTIME THE VALUES CHANGES */
   useEffect(() => {
-    console.log(pagination);
-
     refetch();
+    setPageArrayInfo();
+    console.log(pagesArray);
   }, [pagination]);
+
+  /* SET THE PAGESARRAY INFO DEPENDING ON THE USERS CHOICE*/
+  const setPageArrayInfo = () => {
+    const pages = data?.data.pages;
+    setPagesArray([]);
+    let array = [];
+    for (let i = 1; i <= pages; i++) {
+      array.push(i);
+    }
+    setPagesArray(array);
+  };
 
   return (
     <>
@@ -74,7 +89,7 @@ export const Pagination: React.FC = () => {
                   </GridItem>
                 ))}
           </Grid>
-        }{" "}
+        }
       </Box>
       <Flex dir={"row"} justifyContent={"center"} w={"100%"}>
         <Flex maxW={"64"} dir={"row"}>
@@ -93,7 +108,15 @@ export const Pagination: React.FC = () => {
           >
             <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
-
+          <Flex dir={"row"}>
+            {isLoading
+              ? null
+              : pagesArray.map((index, elem) => (
+                  <Box key={index}>
+                    <Text>{elem + 1}</Text>
+                  </Box>
+                ))}
+          </Flex>
           <Button
             onClick={nextPage}
             p={0}
