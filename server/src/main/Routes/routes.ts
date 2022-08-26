@@ -12,6 +12,17 @@ router.use(putProduct);
 router.use(delProduct);
 router.use(getRouter);
 
+/* CATEGORIES */
+import { router as postCategory } from "./CategoryRoutes/post_category";
+import { router as getCategory } from "./CategoryRoutes/get_category";
+import { router as delCategory } from "./CategoryRoutes/del_category";
+import { router as putCategory } from "./CategoryRoutes/put_category";
+
+router.use(postCategory);
+router.use(getCategory);
+router.use(delCategory);
+router.use(putCategory);
+
 /* OFFERS */
 
 import { router as postOffer } from "./OfferRoutes/post_offer";

@@ -1,18 +1,18 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, ObjectId } from "mongoose";
 
 interface Product {
   name: string;
   image: string;
   price: string;
   description: string;
-  type: string;
+  category: ObjectId;
 }
 
 const ProductSchema = new Schema<Product>({
   name: String,
   image: String,
   price: String,
-  type: String,
+  category: { type: Schema.Types.ObjectId, ref: "Category" },
 });
 
 export const ProductModel = model<Product>("Product", ProductSchema);
