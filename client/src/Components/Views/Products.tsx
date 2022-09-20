@@ -16,13 +16,6 @@ import { ProductsProps } from "../../Interfaces";
 import { Pagination } from "../Reusable/Pagination";
 
 export const Products: React.FC = () => {
-  /* 
-  const initialFunc = () => {
-    if (data) {
-      setProductsInfo(data.data);
-    } else initialFunc();
-  }; */
-
   return (
     <Flex w={"100%"} direction={"column"}>
       <Flex
@@ -30,6 +23,7 @@ export const Products: React.FC = () => {
         h={"36"}
         backgroundColor={"#B83280"}
         justifyContent={"center"}
+        mb={10}
       >
         <Text
           textColor={"whiteAlpha.600"}

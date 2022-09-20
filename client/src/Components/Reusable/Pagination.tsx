@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useGetProductsPaginated } from "../../Api/Products/get_products";
-import { ProductsProps } from "../../Interfaces";
+import { useGetCategories } from "../../Api/Categories/get_categories";
+import { ProductsProps, CategoriesProps } from "../../Interfaces";
 import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
@@ -23,6 +24,9 @@ export const Pagination: React.FC = () => {
     limit: limit,
   });
   const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
+  const { data: categoryData, isLoading: categoryIsLoading } =
+    useGetCategories();
+
   const [pagesArray, setPagesArray] = useState<number[]>([]);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */
@@ -59,7 +63,6 @@ export const Pagination: React.FC = () => {
   useEffect(() => {
     refetch();
     setPageArrayInfo();
-    console.log(pagesArray);
   }, [pagination]);
 
   /* SET THE PAGESARRAY INFO DEPENDING ON THE USERS CHOICE*/
@@ -75,22 +78,55 @@ export const Pagination: React.FC = () => {
 
   return (
     <>
-      <Box w={"80%"} mx={"auto"} bgColor={"red"}>
-        {
-          <Grid templateColumns={"repeat(3, minmax(200px, 1fr))"} gap={6}>
-            {isLoading
-              ? null
-              : data?.data.result.map((prod: ProductsProps) => (
-                  <GridItem key={prod._id}>
-                    <Flex direction={"column"}>
-                      <Box mx={"auto"} bgColor={"blue"} w={"32"} h={"32"}></Box>
-                      <Text textAlign={"center"}>{prod.name}</Text>
-                    </Flex>
-                  </GridItem>
-                ))}
-          </Grid>
-        }
-      </Box>
+      <Flex w={"95%"} mx={"auto"} bgColor={"red"} dir={"row"}>
+        <Flex dir={"column"} w={"44"} borderRight={"1px"}>
+          <Flex w={"100%"}>
+            <Box w={"100%"}>
+              <Text>Categoria</Text>
+              <Box w={"100%"}>
+                {categoryIsLoading
+                  ? null
+                  : categoryData?.data.map((cat: CategoriesProps) => {
+                      return (
+                        <Box key={cat._id} bgColor={"violet"} w={"100%"}>
+                          <Flex dir={"row"}>
+                            <Box
+                              w={2}
+                              h={2}
+                              border={"1px"}
+                              margin={"auto"}
+                            ></Box>
+                            <Text maxW={10}>{cat.name}</Text>
+                          </Flex>
+                        </Box>
+                      );
+                    })}
+              </Box>
+            </Box>
+          </Flex>
+        </Flex>
+        <Box margin={"auto"} bgColor={"green"}>
+          {
+            <Grid templateColumns={"repeat(3, minmax(200px, 1fr))"} gap={6}>
+              {isLoading
+                ? null
+                : data?.data.result.map((prod: ProductsProps) => (
+                    <GridItem key={prod._id}>
+                      <Flex direction={"column"}>
+                        <Box
+                          mx={"auto"}
+                          bgColor={"blue"}
+                          w={"32"}
+                          h={"32"}
+                        ></Box>
+                        <Text textAlign={"center"}>{prod.name}</Text>
+                      </Flex>
+                    </GridItem>
+                  ))}
+            </Grid>
+          }
+        </Box>
+      </Flex>
       <Flex dir={"row"} justifyContent={"center"} w={"100%"}>
         <Flex maxW={"64"} dir={"row"}>
           <Text margin={"auto"}>Mostrar</Text>

@@ -6,3 +6,8 @@ export interface ProductsProps {
   description: string;
   type: string;
 }
+
+export interface CategoriesProps {
+  _id: string;
+  name: string;
+}
