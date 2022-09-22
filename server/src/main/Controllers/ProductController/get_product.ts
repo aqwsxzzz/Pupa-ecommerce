@@ -16,7 +16,7 @@ const getAllProducts = async (
   next: NextFunction
 ) => {
   try {
-    const products = await ProductModel.find({});
+    const products = await ProductModel.find({}).populate("category");
 
     res.status(200).json(products);
   } catch (error) {
