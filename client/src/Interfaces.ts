@@ -4,7 +4,7 @@ export interface ProductsProps {
   image: string;
   price: string;
   description: string;
-  type: string;
+  category: CategoriesProps;
 }
 
 export interface CategoriesProps {

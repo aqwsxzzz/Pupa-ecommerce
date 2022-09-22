@@ -24,10 +24,12 @@ export const Pagination: React.FC = () => {
     limit: limit,
   });
   const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
-  const { data: categoryData, isLoading: categoryIsLoading } =
+  const { data: categoryData, isLoading: isLoadingCategory } =
     useGetCategories();
 
   const [pagesArray, setPagesArray] = useState<number[]>([]);
+  const [categoriesArray, setCategoriesArray] = useState<CategoriesProps[]>([]);
+  const [categoryNumber, setCategoryNumber] = useState(0);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */
   const limitHandler = (e: any) => {
@@ -49,7 +51,7 @@ export const Pagination: React.FC = () => {
     });
   };
 
-  /* SET TH VALUE NEEDED TO BRING THE PREVIOUS PAGINATION PAGE */
+  /* SET THE VALUE NEEDED TO BRING THE PREVIOUS PAGINATION PAGE */
   const previousPage = () => {
     let newPage = parseInt(pagination.page);
     newPage -= 1;
@@ -76,35 +78,64 @@ export const Pagination: React.FC = () => {
     setPagesArray(array);
   };
 
+  /* SET THE CATEGORIESARRAY INFO */
+  /*   if (categoryData) setCategoriesArray(categoryData.data);
+   */
+  /*   const setCategoriesArrayInfo = async () => {
+    if (categoryData) {
+      setCategoriesArray(categoryData.data);
+    } else setCategoriesArrayInfo();
+  };
+
+  useEffect(() => {
+    setCategoriesArrayInfo();
+  }, []);
+ */
+  /* SET THE TEXT OF THE CHOOSED CATEGORY */
+  const SetCategoryText = () => {
+    return categoryData ? (
+      <Text>{categoryData.data[categoryNumber].name}</Text>
+    ) : null;
+  };
+
+  /* PREVIOUS CATEGORY */
+  const prevCategory = () => {
+    if (categoryNumber === 0) {
+      setCategoryNumber(categoryData?.data.length - 1);
+    } else setCategoryNumber(categoryNumber - 1);
+  };
+
   return (
     <>
-      <Flex w={"95%"} mx={"auto"} bgColor={"red"} dir={"row"}>
-        <Flex dir={"column"} w={"44"} borderRight={"1px"}>
-          <Flex w={"100%"}>
-            <Box w={"100%"}>
-              <Text>Categoria</Text>
-              <Box w={"100%"}>
-                {categoryIsLoading
-                  ? null
-                  : categoryData?.data.map((cat: CategoriesProps) => {
-                      return (
-                        <Box key={cat._id} bgColor={"violet"} w={"100%"}>
-                          <Flex dir={"row"}>
-                            <Box
-                              w={2}
-                              h={2}
-                              border={"1px"}
-                              margin={"auto"}
-                            ></Box>
-                            <Text maxW={10}>{cat.name}</Text>
-                          </Flex>
-                        </Box>
-                      );
-                    })}
-              </Box>
-            </Box>
-          </Flex>
+      <Flex
+        w={"80%"}
+        mx={"auto"}
+        bgColor={"violet"}
+        dir={"row"}
+        justifyContent={"center"}
+      >
+        <Flex dir={"row"}>
+          <Button
+            onClick={prevCategory}
+            p={0}
+            bgColor={"white"}
+            cursor={"default"}
+            _hover={{ bgColor: "white" }}
+          >
+            <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
+          </Button>
+          <Box my={"auto"}>{<SetCategoryText />}</Box>
+          <Button
+            p={0}
+            bgColor={"white"}
+            cursor={"default"}
+            _hover={{ bgColor: "white" }}
+          >
+            <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
+          </Button>
         </Flex>
+      </Flex>
+      <Flex w={"80%"} mx={"auto"} bgColor={"red"} dir={"row"}>
         <Box margin={"auto"} bgColor={"green"}>
           {
             <Grid templateColumns={"repeat(3, minmax(200px, 1fr))"} gap={6}>
