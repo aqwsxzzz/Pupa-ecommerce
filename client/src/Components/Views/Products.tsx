@@ -1,23 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Select,
-  Text,
-} from "@chakra-ui/react";
-import {
-  useGetProducts,
-  useGetProductsPaginated,
-} from "../../Api/Products/get_products";
-import { ProductsProps } from "../../Interfaces";
-import { Pagination } from "../Reusable/Pagination";
+import React from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { ProductsInfo } from "../General/ProductsInfo";
 
 export const Products: React.FC = () => {
   return (
-    <Flex w={"100%"} direction={"column"}>
+    <Flex w={"100%"} direction={"column"} bgColor={"#f0d3e9"}>
       <Flex
         w={"100%"}
         h={"36"}
@@ -34,7 +21,7 @@ export const Products: React.FC = () => {
           Productos
         </Text>
       </Flex>
-      <Pagination />
+      <ProductsInfo />
     </Flex>
   );
 };

@@ -10,7 +10,8 @@ import {
 } from "@chakra-ui/react";
 
 import { useGetProductsPaginated } from "../../Api/Products/get_products";
-import { ProductsProps } from "../../Interfaces";
+import { useGetCategories } from "../../Api/Categories/get_categories";
+import { ProductsProps, CategoriesProps } from "../../Interfaces";
 import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
@@ -23,7 +24,12 @@ export const Pagination: React.FC = () => {
     limit: limit,
   });
   const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
+  const { data: categoryData, isLoading: isLoadingCategory } =
+    useGetCategories();
+
   const [pagesArray, setPagesArray] = useState<number[]>([]);
+  const [categoriesArray, setCategoriesArray] = useState<CategoriesProps[]>([]);
+  const [categoryNumber, setCategoryNumber] = useState(0);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */
   const limitHandler = (e: any) => {
@@ -45,7 +51,7 @@ export const Pagination: React.FC = () => {
     });
   };
 
-  /* SET TH VALUE NEEDED TO BRING THE PREVIOUS PAGINATION PAGE */
+  /* SET THE VALUE NEEDED TO BRING THE PREVIOUS PAGINATION PAGE */
   const previousPage = () => {
     let newPage = parseInt(pagination.page);
     newPage -= 1;
@@ -59,7 +65,6 @@ export const Pagination: React.FC = () => {
   useEffect(() => {
     refetch();
     setPageArrayInfo();
-    console.log(pagesArray);
   }, [pagination]);
 
   /* SET THE PAGESARRAY INFO DEPENDING ON THE USERS CHOICE*/
@@ -73,24 +78,86 @@ export const Pagination: React.FC = () => {
     setPagesArray(array);
   };
 
+  /* SET THE CATEGORIESARRAY INFO */
+  /*   if (categoryData) setCategoriesArray(categoryData.data);
+   */
+  /*   const setCategoriesArrayInfo = async () => {
+    if (categoryData) {
+      setCategoriesArray(categoryData.data);
+    } else setCategoriesArrayInfo();
+  };
+
+  useEffect(() => {
+    setCategoriesArrayInfo();
+  }, []);
+ */
+  /* SET THE TEXT OF THE CHOOSED CATEGORY */
+  const SetCategoryText = () => {
+    return categoryData ? (
+      <Text>{categoryData.data[categoryNumber].name}</Text>
+    ) : null;
+  };
+
+  /* PREVIOUS CATEGORY */
+  const prevCategory = () => {
+    if (categoryNumber === 0) {
+      setCategoryNumber(categoryData?.data.length - 1);
+    } else setCategoryNumber(categoryNumber - 1);
+  };
+
   return (
     <>
-      <Box w={"80%"} mx={"auto"} bgColor={"red"}>
-        {
-          <Grid templateColumns={"repeat(3, minmax(200px, 1fr))"} gap={6}>
-            {isLoading
-              ? null
-              : data?.data.result.map((prod: ProductsProps) => (
-                  <GridItem key={prod._id}>
-                    <Flex direction={"column"}>
-                      <Box mx={"auto"} bgColor={"blue"} w={"32"} h={"32"}></Box>
-                      <Text textAlign={"center"}>{prod.name}</Text>
-                    </Flex>
-                  </GridItem>
-                ))}
-          </Grid>
-        }
-      </Box>
+      <Flex
+        w={"80%"}
+        mx={"auto"}
+        bgColor={"violet"}
+        dir={"row"}
+        justifyContent={"center"}
+      >
+        <Flex dir={"row"}>
+          <Button
+            onClick={prevCategory}
+            p={0}
+            bgColor={"white"}
+            cursor={"default"}
+            _hover={{ bgColor: "white" }}
+          >
+            <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
+          </Button>
+          <Box my={"auto"}>{<SetCategoryText />}</Box>
+          <Button
+            p={0}
+            bgColor={"white"}
+            cursor={"default"}
+            _hover={{ bgColor: "white" }}
+          >
+            <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
+          </Button>
+        </Flex>
+      </Flex>
+      <Flex w={"80%"} mx={"auto"} bgColor={"red"} dir={"row"}>
+        <Box margin={"auto"} bgColor={"green"}>
+          {
+            <Grid templateColumns={"repeat(3, minmax(200px, 1fr))"} gap={6}>
+              {isLoading
+                ? null
+                : data?.data.result.map((prod: ProductsProps) => (
+                    <GridItem key={prod._id}>
+                      <Flex direction={"column"}>
+                        <Box
+                          mx={"auto"}
+                          bgColor={"blue"}
+                          w={"32"}
+                          h={"32"}
+                        ></Box>
+                        <Text textAlign={"center"}>{prod.name}</Text>
+                      </Flex>
+                    </GridItem>
+                  ))}
+            </Grid>
+          }
+        </Box>
+      </Flex>
       <Flex dir={"row"} justifyContent={"center"} w={"100%"}>
         <Flex maxW={"64"} dir={"row"}>
           <Text margin={"auto"}>Mostrar</Text>
