@@ -8,6 +8,7 @@ import {
   Select,
   Text,
   SimpleGrid,
+  Image,
 } from "@chakra-ui/react";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
@@ -49,7 +50,7 @@ export const ProductsInfo: React.FC = () => {
     } else setCategoryNumber(categoryNumber + 1);
   };
 
-  /* SAVING THE PRODUCTS THAT WILL BE SHOWN DEPENDING ON THE SELECTED CATEGORY */
+  /* SHOW THE PRODUCTS DEPENDING ON THE SELECTED CATEGORY */
   const ProductsFilter = () => {
     return (
       <Flex w={"80%"} mx={"auto"} bgColor={"red"} dir={"row"}>
@@ -61,7 +62,20 @@ export const ProductsInfo: React.FC = () => {
                   prod.category._id === dataCategories?.data[categoryNumber]._id
               )
               .map((prod: ProductsProps) => (
-                <Box key={prod._id}>{prod.name}</Box>
+                <Box key={prod._id}>
+                  <Box width={"200px"} height={"200 px"}>
+                    <Image
+                      src={prod.image}
+                      // style={{ overflow: "hidden" }}
+                      w={"100%"}
+                      h={"100%"}
+                    ></Image>
+                  </Box>
+                  <Text textAlign={"center"} maxW={"200px"}>
+                    {prod.name}
+                  </Text>
+                  <Text textAlign={"center"}>$ {prod.price}</Text>
+                </Box>
               ))}
           </SimpleGrid>
         </Box>
