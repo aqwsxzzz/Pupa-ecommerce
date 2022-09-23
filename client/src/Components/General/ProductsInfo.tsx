@@ -53,8 +53,8 @@ export const ProductsInfo: React.FC = () => {
   /* SHOW THE PRODUCTS DEPENDING ON THE SELECTED CATEGORY */
   const ProductsFilter = () => {
     return (
-      <Flex w={"80%"} mx={"auto"} bgColor={"red"} dir={"row"}>
-        <Box margin={"auto"} bgColor={"green"}>
+      <Flex w={"80%"} mx={"auto"} dir={"row"} bgColor={"#f0d3e9"}>
+        <Box margin={"auto"}>
           <SimpleGrid columns={3} spacing={"20px"}>
             {dataProducts?.data
               .filter(
@@ -62,15 +62,20 @@ export const ProductsInfo: React.FC = () => {
                   prod.category._id === dataCategories?.data[categoryNumber]._id
               )
               .map((prod: ProductsProps) => (
-                <Box key={prod._id}>
-                  <Box width={"200px"} height={"200 px"}>
+                <Box key={prod._id} borderRadius={10}>
+                  <Flex
+                    dir={"row"}
+                    width={"200px"}
+                    height={"200px"}
+                    style={{ overflow: "hidden" }}
+                    justifyContent={"center"}
+                  >
                     <Image
                       src={prod.image}
-                      // style={{ overflow: "hidden" }}
-                      w={"100%"}
-                      h={"100%"}
+                      h={"200px"}
+                      borderRadius={10}
                     ></Image>
-                  </Box>
+                  </Flex>
                   <Text textAlign={"center"} maxW={"200px"}>
                     {prod.name}
                   </Text>
@@ -85,30 +90,28 @@ export const ProductsInfo: React.FC = () => {
 
   return (
     <>
-      <Flex
-        w={"80%"}
-        mx={"auto"}
-        bgColor={"violet"}
-        dir={"row"}
-        justifyContent={"center"}
-      >
-        <Flex dir={"row"}>
+      <Flex w={"80%"} mx={"auto"} dir={"row"} justifyContent={"center"}>
+        <Flex dir={"row"} mb={4} w={"100%"} justifyContent={"center"}>
           <Button
             onClick={prevCategory}
             p={0}
-            bgColor={"white"}
+            bgColor={"#f0d3e9"}
             cursor={"default"}
-            _hover={{ bgColor: "white" }}
+            _hover={{ bgColor: "#f0d3e9" }}
           >
             <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
-          <Box my={"auto"}>{<SetCategoryText />}</Box>
+          <Flex my={"auto"}>
+            <Text fontSize={"2xl"} fontFamily={"sans-serif"}>
+              {<SetCategoryText />}
+            </Text>
+          </Flex>
           <Button
             onClick={nextCategory}
             p={0}
-            bgColor={"white"}
+            bgColor={"#f0d3e9"}
             cursor={"default"}
-            _hover={{ bgColor: "white" }}
+            _hover={{ bgColor: "#f0d3e9" }}
           >
             <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
           </Button>

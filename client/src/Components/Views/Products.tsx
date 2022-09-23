@@ -4,7 +4,7 @@ import { ProductsInfo } from "../General/ProductsInfo";
 
 export const Products: React.FC = () => {
   return (
-    <Flex w={"100%"} direction={"column"}>
+    <Flex w={"100%"} direction={"column"} bgColor={"#f0d3e9"}>
       <Flex
         w={"100%"}
         h={"36"}

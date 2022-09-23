@@ -8,7 +8,7 @@ import llaveros1 from "../../Images/Llaveros1.jpeg";
 
 export const Home: React.FC = () => {
   return (
-    <Box>
+    <Box bgColor={"#f0d3e9"}>
       <Box w={"100%"}>
         <Image src={topImage} />
       </Box>
