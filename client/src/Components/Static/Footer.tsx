@@ -17,11 +17,6 @@ import { links } from "../../ExternalLinks";
 export const StaticFooter: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  /* WILL OPEN A NEW TAB WITH THE SELECTED URL */
-  const externalLinksFunc = (media: string) => {
-    window.open(media, "_blank");
-  };
-
   return (
     <Box bgColor={"black"} w={"100%"} h={64}>
       <Flex w={"100%"} h={"100%"}>
@@ -30,28 +25,20 @@ export const StaticFooter: React.FC = () => {
             <Image src={logo} m={"auto"} />
           </Flex>
           <Flex h={"20%"} justifyContent={"center"}>
-            <Box
-              px={1}
-              cursor={"pointer"}
-              mr={1}
-              onClick={() => externalLinksFunc(links.instagram)}
-            >
-              <BsInstagram color="white" />
+            <Box px={1} cursor={"pointer"} mr={1}>
+              <a target="_blank" href={links.instagram}>
+                <BsInstagram color="white" />
+              </a>
             </Box>
-            <Box
-              px={1}
-              cursor={"pointer"}
-              mr={1}
-              onClick={() => externalLinksFunc(links.facebook)}
-            >
-              <FaFacebookF color="white" />
+            <Box px={1} cursor={"pointer"} mr={1}>
+              <a target="_blank" href={links.facebook}>
+                <FaFacebookF color="white" />
+              </a>
             </Box>
-            <Box
-              px={1}
-              cursor={"pointer"}
-              onClick={() => externalLinksFunc(links.whatsapp)}
-            >
-              <BsWhatsapp color="white" />
+            <Box px={1} cursor={"pointer"}>
+              <a target="_blank" href={links.whatsapp}>
+                <BsWhatsapp color="white" />
+              </a>
             </Box>
           </Flex>
         </Flex>
