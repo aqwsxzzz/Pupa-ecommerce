@@ -6,7 +6,6 @@ import {
   Text,
   Stack,
   useDisclosure,
-  Button,
 } from "@chakra-ui/react";
 import logo from "../../Images/LogoBlackBG2.jpg";
 import { BsInstagram } from "react-icons/bs";
@@ -24,13 +23,7 @@ export const StaticFooter: React.FC = () => {
   };
 
   return (
-    <Box
-      bgColor={"black"}
-      w={"100%"}
-      h={"64"}
-      position={"absolute"}
-      bottom={"0px"}
-    >
+    <Box bgColor={"black"} w={"100%"} h={64}>
       <Flex w={"100%"} h={"100%"}>
         <Flex h={"100%"} w={"30%"} direction={"column"}>
           <Flex w={"100%"} h={"80%"}>
