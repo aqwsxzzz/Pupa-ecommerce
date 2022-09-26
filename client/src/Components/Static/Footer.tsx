@@ -6,31 +6,58 @@ import {
   Text,
   Stack,
   useDisclosure,
+  Button,
 } from "@chakra-ui/react";
 import logo from "../../Images/LogoBlackBG2.jpg";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import { ContactUsModal } from "../Modals/ContactUsModal";
+import { links } from "../../ExternalLinks";
 
 export const StaticFooter: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  /* WILL OPEN A NEW TAB WITH THE SELECTED URL */
+  const externalLinksFunc = (media: string) => {
+    window.open(media, "_blank");
+  };
+
   return (
-    <Box bgColor={"black"} w={"100%"} h={"64"} mt={"3"}>
+    <Box
+      bgColor={"black"}
+      w={"100%"}
+      h={"64"}
+      position={"absolute"}
+      bottom={"0px"}
+    >
       <Flex w={"100%"} h={"100%"}>
         <Flex h={"100%"} w={"30%"} direction={"column"}>
           <Flex w={"100%"} h={"80%"}>
             <Image src={logo} m={"auto"} />
           </Flex>
           <Flex h={"20%"} justifyContent={"center"}>
-            <Box px={1}>
+            <Box
+              px={1}
+              cursor={"pointer"}
+              mr={1}
+              onClick={() => externalLinksFunc(links.instagram)}
+            >
               <BsInstagram color="white" />
             </Box>
-            <Box px={1}>
+            <Box
+              px={1}
+              cursor={"pointer"}
+              mr={1}
+              onClick={() => externalLinksFunc(links.facebook)}
+            >
               <FaFacebookF color="white" />
             </Box>
-            <Box px={1}>
+            <Box
+              px={1}
+              cursor={"pointer"}
+              onClick={() => externalLinksFunc(links.whatsapp)}
+            >
               <BsWhatsapp color="white" />
             </Box>
           </Flex>
