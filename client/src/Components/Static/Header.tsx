@@ -32,6 +32,8 @@ export const StaticHeader: React.FC = () => {
               cursor={"pointer"}
               fontWeight={"bold"}
               fontFamily={"sans-serif"}
+              color={"white"}
+              _hover={{ color: "#B83280" }}
               onClick={() => navigate("/")}
             >
               Inicio
@@ -40,6 +42,8 @@ export const StaticHeader: React.FC = () => {
               cursor={"pointer"}
               fontWeight={"bold"}
               fontFamily={"sans-serif"}
+              color={"white"}
+              _hover={{ color: "#B83280" }}
               onClick={() => navigate("/products")}
             >
               Productos
