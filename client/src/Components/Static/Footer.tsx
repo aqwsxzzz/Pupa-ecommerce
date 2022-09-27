@@ -12,26 +12,33 @@ import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import { ContactUsModal } from "../Modals/ContactUsModal";
+import { links } from "../../ExternalLinks";
 
 export const StaticFooter: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bgColor={"black"} w={"100%"} h={"64"} mt={"3"}>
+    <Box bgColor={"black"} w={"100%"} h={64}>
       <Flex w={"100%"} h={"100%"}>
         <Flex h={"100%"} w={"30%"} direction={"column"}>
           <Flex w={"100%"} h={"80%"}>
             <Image src={logo} m={"auto"} />
           </Flex>
           <Flex h={"20%"} justifyContent={"center"}>
-            <Box px={1}>
-              <BsInstagram color="white" />
+            <Box px={1} cursor={"pointer"} mr={1}>
+              <a target="_blank" href={links.instagram}>
+                <BsInstagram color="white" />
+              </a>
             </Box>
-            <Box px={1}>
-              <FaFacebookF color="white" />
+            <Box px={1} cursor={"pointer"} mr={1}>
+              <a target="_blank" href={links.facebook}>
+                <FaFacebookF color="white" />
+              </a>
             </Box>
-            <Box px={1}>
-              <BsWhatsapp color="white" />
+            <Box px={1} cursor={"pointer"}>
+              <a target="_blank" href={links.whatsapp}>
+                <BsWhatsapp color="white" />
+              </a>
             </Box>
           </Flex>
         </Flex>
