@@ -1,8 +1,11 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
+import { useNavigate } from "react-router-dom";
 
 export const StaticHeader: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <Flex direction={"column"} w={"100%"}>
       <Flex
@@ -21,10 +24,41 @@ export const StaticHeader: React.FC = () => {
           Productos hechos 100% a mano.
         </Text>
       </Flex>
-      <Flex w={"100%"} h={12} direction={"row"} justify={"center"}>
-        <Box boxSize={10} mt={2}>
-          <Image src={logo2} />
+      <Flex w={"100%"} h={16} direction={"row"} bgColor={"#f0d3e9"}>
+        <Flex flex={"1"}>
+          <Flex my={"auto"} ml={16}>
+            <Text
+              mr={4}
+              cursor={"pointer"}
+              fontWeight={"bold"}
+              fontFamily={"sans-serif"}
+              onClick={() => navigate("/")}
+            >
+              Inicio
+            </Text>
+            <Text
+              cursor={"pointer"}
+              fontWeight={"bold"}
+              fontFamily={"sans-serif"}
+              onClick={() => navigate("/products")}
+            >
+              Productos
+            </Text>
+          </Flex>
+        </Flex>
+        <Box
+          my={"auto"}
+          w={12}
+          h={12}
+          bgColor={"white"}
+          borderRadius={"50%"}
+          style={{ overflow: "hidden" }}
+        >
+          <Flex mt={1.5} mb={1}>
+            <Image src={logo2} w={8} m={"auto"} />
+          </Flex>
         </Box>
+        <Flex flex={"1"}></Flex>
       </Flex>
     </Flex>
   );
