@@ -34,6 +34,7 @@ export const StaticHeader: React.FC = () => {
               fontFamily={"sans-serif"}
               color={"white"}
               _hover={{ color: "#B83280" }}
+              style={{ WebkitTextStroke: "0.5px black" }}
               onClick={() => navigate("/")}
             >
               Inicio
@@ -44,6 +45,7 @@ export const StaticHeader: React.FC = () => {
               fontFamily={"sans-serif"}
               color={"white"}
               _hover={{ color: "#B83280" }}
+              style={{ WebkitTextStroke: "0.5px black" }}
               onClick={() => navigate("/products")}
             >
               Productos
@@ -56,6 +58,8 @@ export const StaticHeader: React.FC = () => {
           h={12}
           bgColor={"white"}
           borderRadius={"50%"}
+          borderWidth={1}
+          borderColor={"black"}
           style={{ overflow: "hidden" }}
         >
           <Flex mt={1.5} mb={1}>
