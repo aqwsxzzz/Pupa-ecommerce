@@ -1,11 +1,11 @@
 import { Schema, model, ObjectId } from "mongoose";
 
-interface Product {
+export interface Product {
   name: string;
-  image: string;
+  image: string | undefined;
   price: string;
-  description: string;
-  category: ObjectId;
+  description?: string;
+  category: { name: string };
 }
 
 const ProductSchema = new Schema<Product>({
