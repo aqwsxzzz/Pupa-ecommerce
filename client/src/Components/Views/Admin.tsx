@@ -9,7 +9,7 @@ import { TiTick, TiCancel } from "react-icons/ti";
 export const Admin: React.FC = () => {
   const { data: dataProducts, isLoading: isLoadingProducts } = useGetProducts();
 
-  const [editStatus, setEditStatus] = useState(true);
+  const [editStatus, setEditStatus] = useState(false);
 
   const editSwitchOff = () => {
     setEditStatus(false);
@@ -33,10 +33,19 @@ export const Admin: React.FC = () => {
         <Input mx={1} flex={"1"}></Input>
         <Input flex={"3"}></Input>
         <Box flex={"1"}>
-          <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitchOff}>
+          <Button
+            mr={1}
+            bgColor={"#f0d3e9"}
+            _hover={{ bgColor: "#B83280" }}
+            onClick={editSwitchOff}
+          >
             <TiTick />
           </Button>
-          <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitchOff}>
+          <Button
+            bgColor={"#f0d3e9"}
+            _hover={{ bgColor: "#B83280" }}
+            onClick={editSwitchOff}
+          >
             <TiCancel />
           </Button>
         </Box>
@@ -59,7 +68,12 @@ export const Admin: React.FC = () => {
         </Text>
         <Text flex={"3"}>{prod.description}</Text>
         <Box flex={"1"}>
-          <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitchOn}>
+          <Button
+            mr={1}
+            bgColor={"#f0d3e9"}
+            _hover={{ bgColor: "#B83280" }}
+            onClick={editSwitchOn}
+          >
             <RiEdit2Fill />
           </Button>
           <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }}>
@@ -72,9 +86,21 @@ export const Admin: React.FC = () => {
 
   return (
     <Flex direction={"column"} w={"100%"}>
-      <Flex w={"100%"} h={16} justify={"center"} direction={"row"} bgColor={"#f0d3e9"}>
+      <Flex
+        w={"100%"}
+        h={16}
+        justify={"center"}
+        direction={"row"}
+        bgColor={"#f0d3e9"}
+      >
         <Flex flex={"1"} justifyContent={"center"}>
-          <Text m={"auto"} color={"#B83280"} fontFamily={"sans-serif"} fontWeight={"bold"} cursor={"pointer"}>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+          >
             Productos
           </Text>
         </Flex>
@@ -93,7 +119,13 @@ export const Admin: React.FC = () => {
           </Flex>
         </Box>
         <Flex flex={"1"} justifyContent={"center"}>
-          <Text m={"auto"} color={"#B83280"} fontFamily={"sans-serif"} fontWeight={"bold"} cursor={"pointer"}>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+          >
             Categorias
           </Text>
         </Flex>
