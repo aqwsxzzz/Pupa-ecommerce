@@ -8,14 +8,12 @@ const getProducts = () => {
   return response;
 };
 
-const useGetProducts = () => useQuery(["products"], () => getProducts());
+const useGetProducts = () => useQuery(["products"], getProducts);
 
 /* GET ALL PRODUCTS PAGINATED */
 
 const getProductsPaginated = (queries: { page: string; limit: string }) => {
-  const response = axios.get(
-    `${url}/getAllProductsPaginated?page=${queries.page}&limit=${queries.limit}`
-  );
+  const response = axios.get(`${url}/getAllProductsPaginated?page=${queries.page}&limit=${queries.limit}`);
   return response;
 };
 

@@ -3,10 +3,7 @@ import { Box, Button, Flex, Text, SimpleGrid, Image } from "@chakra-ui/react";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
 import { ProductsProps } from "../../Interfaces";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const ProductsInfo: React.FC = () => {
   /* GET COMPLETE DATA FROM API */
@@ -21,7 +18,9 @@ export const ProductsInfo: React.FC = () => {
   /* SET THE TEXT OF THE CHOOSED CATEGORY */
   const SetCategoryText = () => {
     return dataCategories ? (
-      <Text>{dataCategories.data[categoryNumber].name}</Text>
+      <Text fontSize={"2xl"} fontFamily={"sans-serif"}>
+        {dataCategories.data[categoryNumber].name}
+      </Text>
     ) : null;
   };
 
@@ -45,11 +44,8 @@ export const ProductsInfo: React.FC = () => {
       <Flex w={"80%"} mx={"auto"} dir={"row"} bgColor={"#f0d3e9"}>
         <Box margin={"auto"}>
           <SimpleGrid columns={3} spacing={"20px"}>
-            {dataProducts?.data
-              .filter(
-                (prod: ProductsProps) =>
-                  prod.category._id === dataCategories?.data[categoryNumber]._id
-              )
+            {dataProducts?.data.products
+              .filter((prod: ProductsProps) => prod.category._id === dataCategories?.data[categoryNumber]._id)
               .map((prod: ProductsProps) => (
                 <Box key={prod._id} borderRadius={10}>
                   <Flex
@@ -59,11 +55,7 @@ export const ProductsInfo: React.FC = () => {
                     style={{ overflow: "hidden" }}
                     justifyContent={"center"}
                   >
-                    <Image
-                      src={prod.image}
-                      h={"200px"}
-                      borderRadius={10}
-                    ></Image>
+                    <Image src={prod.image} h={"200px"} borderRadius={10}></Image>
                   </Flex>
                   <Text textAlign={"center"} maxW={"200px"}>
                     {prod.name}
@@ -91,9 +83,7 @@ export const ProductsInfo: React.FC = () => {
             <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
           <Flex my={"auto"}>
-            <Text fontSize={"2xl"} fontFamily={"sans-serif"}>
-              {<SetCategoryText />}
-            </Text>
+            <Box>{<SetCategoryText />}</Box>
           </Flex>
           <Button
             onClick={nextCategory}

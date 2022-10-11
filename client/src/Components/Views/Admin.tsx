@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import logo2 from "../../Images/2.jpeg";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { ProductsProps } from "../../Interfaces";
-import { ProductsAdminCard } from "../../Admin/Products";
+import { ProductsAdminCard } from "../Admin/Products";
 
 export const Admin: React.FC = () => {
   const { data: dataProducts, isLoading: isLoadingProducts } = useGetProducts();
@@ -48,7 +48,7 @@ export const Admin: React.FC = () => {
         >
           {isLoadingProducts
             ? null
-            : dataProducts?.data.map((prod: ProductsProps) => (
+            : dataProducts?.data.products.map((prod: ProductsProps) => (
                 <ProductsAdminCard
                   name={prod.name}
                   price={prod.price}

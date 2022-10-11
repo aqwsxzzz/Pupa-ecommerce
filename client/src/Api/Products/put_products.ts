@@ -1,23 +1,20 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 import url from "../url";
 import { ProductsProps } from "../../Interfaces";
 
 /* EDIT AN EXISTING PRODUCT */
-const editProduct = (editedProduct: ProductsProps, categoryId: string, productId: string) => {
-  const { name, image, price, description } = editedProduct;
+const editProduct = (editedProduct: ProductsProps) => {
+  const { name, price, description, category } = editedProduct;
 
-  const response = axios.put(`${url}/editProduct/${productId}`, {
+  return axios.put(`${url}/editProduct/${editedProduct._id}`, {
     name,
-    image,
     price,
-    categoryId,
+    categoryId: category._id,
     description,
   });
-  return response;
 };
 
-const useEditProduct = (editedProduct: ProductsProps, categoryId: string, productId: string) =>
-  useQuery(["editProduct"], () => editProduct(editedProduct, categoryId, productId));
-
-export { useEditProduct };
+export const useEditProduct = () => {
+  return useMutation(editProduct);
+};

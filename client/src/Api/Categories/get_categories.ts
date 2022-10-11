@@ -10,4 +10,12 @@ const getCategories = () => {
 
 const useGetCategories = () => useQuery(["categories"], () => getCategories());
 
-export { useGetCategories };
+/* GET CATEGORY BY ID */
+const getCategoryById = (id: string) => {
+  const response = axios.get(`${url}/getCategoryById/${id}`);
+  return response;
+};
+
+const useGetCategoryById = (id: string) => useQuery(["categoryById"], () => getCategoryById(id));
+
+export { useGetCategories, useGetCategoryById };
