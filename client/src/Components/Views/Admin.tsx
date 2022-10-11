@@ -6,13 +6,29 @@ import { ProductsProps } from "../../Interfaces";
 import { ProductsAdminCard } from "../Admin/Products";
 
 export const Admin: React.FC = () => {
-  const { data: dataProducts, isLoading: isLoadingProducts } = useGetProducts();
+  const {
+    data: dataProducts,
+    isLoading: isLoadingProducts,
+    refetch: refetchProducts,
+  } = useGetProducts();
 
   return (
     <Flex direction={"column"} w={"100%"}>
-      <Flex w={"100%"} h={16} justify={"center"} direction={"row"} bgColor={"#f0d3e9"}>
+      <Flex
+        w={"100%"}
+        h={16}
+        justify={"center"}
+        direction={"row"}
+        bgColor={"#f0d3e9"}
+      >
         <Flex flex={"1"} justifyContent={"center"}>
-          <Text m={"auto"} color={"#B83280"} fontFamily={"sans-serif"} fontWeight={"bold"} cursor={"pointer"}>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+          >
             Productos
           </Text>
         </Flex>
@@ -31,7 +47,13 @@ export const Admin: React.FC = () => {
           </Flex>
         </Box>
         <Flex flex={"1"} justifyContent={"center"}>
-          <Text m={"auto"} color={"#B83280"} fontFamily={"sans-serif"} fontWeight={"bold"} cursor={"pointer"}>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+          >
             Categorias
           </Text>
         </Flex>

@@ -1,13 +1,24 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, Image, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Input,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
 import { useEditProduct } from "../../Api/Products/put_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
 
-export const ProductsAdminCard: React.FC<ProductsProps> = (prod: ProductsProps) => {
-  const { data: dataCategories, isLoading: isLoadingCategory } = useGetCategories();
+export const ProductsAdminCard: React.FC<ProductsProps> = (
+  prod: ProductsProps
+) => {
+  const { data: dataCategories, isLoading: isLoadingCategory } =
+    useGetCategories();
   const [editStatus, setEditStatus] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     _id: prod._id,
@@ -32,10 +43,12 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (prod: ProductsProps) 
 
   const categoryHandler = (e: any) => {
     const value = e.target.value;
+    console.log(value);
     setEditedProduct({
       ...editedProduct,
-      category: value,
+      category: { name: value, _id: e.target.label },
     });
+    console.log(editedProduct);
   };
 
   /* SEND THE NEW PRODUC INFO */
@@ -88,11 +101,17 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (prod: ProductsProps) 
         mx={1}
         flex={"1"}
         defaultValue={editedProduct.category.name}
+        onChange={categoryHandler}
       >
         {isLoadingCategory
           ? null
           : dataCategories?.data.map((cat: CategoriesProps) => (
-              <option value={cat._id} key={cat._id} onSelect={categoryHandler}>
+              <option
+                value={cat.name}
+                key={cat._id}
+                label={cat._id}
+                onSelect={categoryHandler}
+              >
                 {cat.name}
               </option>
             ))}
@@ -105,10 +124,19 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (prod: ProductsProps) 
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editProduct}
+        >
           <TiTick />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
+        <Button
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={cancelEdit}
+        >
           <TiCancel />
         </Button>
       </Box>
@@ -131,7 +159,12 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (prod: ProductsProps) 
       </Text>
       <Text flex={"3"}>{editedProduct.description}</Text>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editSwitch}
+        >
           <RiEdit2Fill />
         </Button>
         <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }}>
