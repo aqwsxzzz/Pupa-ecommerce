@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 
 import { useGetProductsPaginated } from "../../Api/Products/get_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
-import { ProductsProps, CategoriesProps } from "../../Interfaces";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
+import { ProductsProps, CategoriesProps } from "../../Utils/Interfaces";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const Pagination: React.FC = () => {
   const [limit, setLimit] = useState("6");
@@ -24,8 +13,7 @@ export const Pagination: React.FC = () => {
     limit: limit,
   });
   const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
-  const { data: categoryData, isLoading: isLoadingCategory } =
-    useGetCategories();
+  const { data: categoryData, isLoading: isLoadingCategory } = useGetCategories();
 
   const [pagesArray, setPagesArray] = useState<number[]>([]);
   const [categoriesArray, setCategoriesArray] = useState<CategoriesProps[]>([]);
@@ -93,9 +81,7 @@ export const Pagination: React.FC = () => {
  */
   /* SET THE TEXT OF THE CHOOSED CATEGORY */
   const SetCategoryText = () => {
-    return categoryData ? (
-      <Text>{categoryData.data[categoryNumber].name}</Text>
-    ) : null;
+    return categoryData ? <Text>{categoryData.data[categoryNumber].name}</Text> : null;
   };
 
   /* PREVIOUS CATEGORY */
@@ -107,13 +93,7 @@ export const Pagination: React.FC = () => {
 
   return (
     <>
-      <Flex
-        w={"80%"}
-        mx={"auto"}
-        bgColor={"violet"}
-        dir={"row"}
-        justifyContent={"center"}
-      >
+      <Flex w={"80%"} mx={"auto"} bgColor={"violet"} dir={"row"} justifyContent={"center"}>
         <Flex dir={"row"}>
           <Button
             onClick={prevCategory}
@@ -125,12 +105,7 @@ export const Pagination: React.FC = () => {
             <BsFillArrowLeftCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
           <Box my={"auto"}>{<SetCategoryText />}</Box>
-          <Button
-            p={0}
-            bgColor={"white"}
-            cursor={"default"}
-            _hover={{ bgColor: "white" }}
-          >
+          <Button p={0} bgColor={"white"} cursor={"default"} _hover={{ bgColor: "white" }}>
             <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
         </Flex>
@@ -144,12 +119,7 @@ export const Pagination: React.FC = () => {
                 : data?.data.result.map((prod: ProductsProps) => (
                     <GridItem key={prod._id}>
                       <Flex direction={"column"}>
-                        <Box
-                          mx={"auto"}
-                          bgColor={"blue"}
-                          w={"32"}
-                          h={"32"}
-                        ></Box>
+                        <Box mx={"auto"} bgColor={"blue"} w={"32"} h={"32"}></Box>
                         <Text textAlign={"center"}>{prod.name}</Text>
                       </Flex>
                     </GridItem>
@@ -184,13 +154,7 @@ export const Pagination: React.FC = () => {
                   </Box>
                 ))}
           </Flex>
-          <Button
-            onClick={nextPage}
-            p={0}
-            bgColor={"white"}
-            cursor={"default"}
-            _hover={{ bgColor: "white" }}
-          >
+          <Button onClick={nextPage} p={0} bgColor={"white"} cursor={"default"} _hover={{ bgColor: "white" }}>
             <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
         </Flex>

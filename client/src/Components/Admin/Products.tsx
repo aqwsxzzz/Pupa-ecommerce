@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Input,
-  Select,
-  Text,
-} from "@chakra-ui/react";
-import { CategoriesProps, ProductsProps } from "../../Interfaces";
+import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
 import { useEditProduct } from "../../Api/Products/put_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
+import { DelProductModal } from "Components/Modals/DelProductModal";
 
-export const ProductsAdminCard: React.FC<ProductsProps> = (
-  prod: ProductsProps
-) => {
-  const { data: dataCategories, isLoading: isLoadingCategory } =
-    useGetCategories();
+interface Card {
+  prod: ProductsProps;
+  refetch: () => void;
+}
+
+export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: dataCategories, isLoading: isLoadingCategory } = useGetCategories();
   const [editStatus, setEditStatus] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     _id: prod._id,
@@ -33,6 +29,8 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (
     setEditStatus(!editStatus);
   };
 
+  /* HANDLERS */
+
   const editProductHandler = (e: any) => {
     const value = e.target.value;
     setEditedProduct({
@@ -43,22 +41,25 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (
 
   const categoryHandler = (e: any) => {
     const value = e.target.value;
-    console.log(value);
-    setEditedProduct({
-      ...editedProduct,
-      category: { name: value, _id: e.target.label },
-    });
-    console.log(editedProduct);
+    for (let i = 0; i < dataCategories?.data.length; i++) {
+      if (value === dataCategories?.data[i]._id) {
+        setEditedProduct({
+          ...editedProduct,
+          category: { _id: dataCategories?.data[i]._id, name: dataCategories?.data[i].name },
+        });
+      }
+    }
   };
 
   /* SEND THE NEW PRODUC INFO */
 
-  const { mutateAsync } = useEditProduct();
+  const { mutateAsync: mutateAsyncEdit } = useEditProduct();
   const editProduct = async () => {
-    await mutateAsync(editedProduct);
+    await mutateAsyncEdit(editedProduct);
     editSwitch();
   };
 
+  /* CANCEL MODIFICATION AND RESET IT TO ORIGINAL INFO */
   const cancelEdit = () => {
     setEditedProduct({
       _id: prod._id,
@@ -106,12 +107,7 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (
         {isLoadingCategory
           ? null
           : dataCategories?.data.map((cat: CategoriesProps) => (
-              <option
-                value={cat.name}
-                key={cat._id}
-                label={cat._id}
-                onSelect={categoryHandler}
-              >
+              <option value={cat._id} key={cat._id} label={cat._id} onSelect={categoryHandler}>
                 {cat.name}
               </option>
             ))}
@@ -124,19 +120,10 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button
-          mr={1}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editProduct}
-        >
+        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
           <TiTick />
         </Button>
-        <Button
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={cancelEdit}
-        >
+        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
           <TiCancel />
         </Button>
       </Box>
@@ -153,24 +140,26 @@ export const ProductsAdminCard: React.FC<ProductsProps> = (
       <Text mx={1} flex={"3"}>
         {editedProduct.name}
       </Text>
-      <Text flex={"1"}>{prod.price}</Text>
+      <Text flex={"1"}>{editedProduct.price}</Text>
       <Text mx={1} flex={"1"}>
         {editedProduct.category?.name}
       </Text>
       <Text flex={"3"}>{editedProduct.description}</Text>
       <Box flex={"1"}>
-        <Button
-          mr={1}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editSwitch}
-        >
+        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
           <RiEdit2Fill />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }}>
+        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
           <RiDeleteBin7Fill />
         </Button>
       </Box>
+      <DelProductModal
+        isOpen={isOpen}
+        onClose={onClose}
+        prodId={prod._id}
+        editSwitch={editSwitch}
+        refetch={refetch}
+      />
     </Flex>
   );
 };

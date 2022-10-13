@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Flex, Text, SimpleGrid, Image } from "@chakra-ui/react";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { useGetCategories } from "../../Api/Categories/get_categories";
-import { ProductsProps } from "../../Interfaces";
+import { ProductsProps } from "../../Utils/Interfaces";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const ProductsInfo: React.FC = () => {

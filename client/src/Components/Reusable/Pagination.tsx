@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
 
 import { useGetProductsPaginated } from "../../Api/Products/get_products";
-import { ProductsProps } from "../../Interfaces";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
+import { ProductsProps } from "../../Utils/Interfaces";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const Pagination: React.FC = () => {
   const [limit, setLimit] = useState("6");
@@ -117,13 +106,7 @@ export const Pagination: React.FC = () => {
                   </Box>
                 ))}
           </Flex>
-          <Button
-            onClick={nextPage}
-            p={0}
-            bgColor={"white"}
-            cursor={"default"}
-            _hover={{ bgColor: "white" }}
-          >
+          <Button onClick={nextPage} p={0} bgColor={"white"} cursor={"default"} _hover={{ bgColor: "white" }}>
             <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
         </Flex>

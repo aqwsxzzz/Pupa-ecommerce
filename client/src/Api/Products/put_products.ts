@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation } from "react-query";
 import url from "../url";
-import { ProductsProps } from "../../Interfaces";
+import { ProductsProps } from "../../Utils/Interfaces";
 
 /* EDIT AN EXISTING PRODUCT */
 const editProduct = (editedProduct: ProductsProps) => {
