@@ -4,9 +4,18 @@ import logo2 from "../../Images/2.jpeg";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { ProductsProps } from "../../Utils/Interfaces";
 import { ProductsAdminCard } from "../Admin/Products";
+import { useAppDispatch } from "Store/store";
+import { getProducts } from "Store/slices/products/actions";
 
 export const Admin: React.FC = () => {
   const { data: dataProducts, isLoading: isLoadingProducts, refetch: refetchProducts } = useGetProducts();
+  const dispatch = useAppDispatch();
+
+  const productsInfo = () => {
+    getProducts(dataProducts, dispatch);
+  };
+
+  productsInfo();
 
   const refetchFunc = () => {
     refetchProducts();
