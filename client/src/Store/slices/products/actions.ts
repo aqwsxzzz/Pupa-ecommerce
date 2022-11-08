@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { AppDispatch } from "Store/store";
 
 const products = (data: AxiosResponse<any, any> | undefined) => ({
-  type: "products/getProducts",
+  type: "product/getProducts",
   payload: data?.data,
 });
 

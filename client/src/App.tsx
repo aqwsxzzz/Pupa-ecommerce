@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./Components/Views/Home";
 import { Products } from "./Components/Views/Products";
 import { Admin } from "./Components/Views/Admin";
+import { PreFetch } from "Components/General/PreFetch";
 
 const queryClient = new QueryClient();
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
+        <PreFetch />
         <ChakraProvider>
           <Routes>
             <Route path="/" element={<Home />} />

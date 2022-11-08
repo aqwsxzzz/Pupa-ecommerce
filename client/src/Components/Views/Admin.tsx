@@ -1,21 +1,14 @@
-import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import React from "react";
 import logo2 from "../../Images/2.jpeg";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { ProductsProps } from "../../Utils/Interfaces";
 import { ProductsAdminCard } from "../Admin/Products";
-import { useAppDispatch } from "Store/store";
-import { getProducts } from "Store/slices/products/actions";
+import { RootState, useAppSelector } from "Store/store";
 
 export const Admin: React.FC = () => {
-  const { data: dataProducts, isLoading: isLoadingProducts, refetch: refetchProducts } = useGetProducts();
-  const dispatch = useAppDispatch();
-
-  const productsInfo = () => {
-    getProducts(dataProducts, dispatch);
-  };
-
-  productsInfo();
+  const { refetch: refetchProducts } = useGetProducts();
+  const { products } = useAppSelector((state: RootState) => state.productsSlice);
 
   const refetchFunc = () => {
     refetchProducts();
@@ -59,11 +52,11 @@ export const Admin: React.FC = () => {
           borderBottom={"1px"}
           borderColor={"#B83280"}
         >
-          {isLoadingProducts
-            ? null
-            : dataProducts?.data.products.map((prod: ProductsProps) => (
+          {products
+            ? products.map((prod: ProductsProps) => (
                 <ProductsAdminCard prod={prod} refetch={refetchFunc} key={prod._id} />
-              ))}
+              ))
+            : null}
         </Flex>
       </Flex>
     </Flex>
