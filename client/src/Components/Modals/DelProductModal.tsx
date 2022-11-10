@@ -1,39 +1,25 @@
 import React from "react";
-import {
-  Box,
-  Flex,
-  FormControl,
-  Input,
-  IconButton,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  Textarea,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Text, Modal, ModalOverlay, ModalContent, ModalBody, Button } from "@chakra-ui/react";
 import { useDelProductById } from "Api/Products/del_products";
+import { ModalProps } from "../../Utils/Interfaces";
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+interface DelModalProps {
+  modal: ModalProps;
   prodId: string;
-  editSwitch: () => void;
   refetch: () => void;
 }
 
-export const DelProductModal: React.FC<ModalProps> = ({ isOpen, onClose, prodId, editSwitch, refetch }) => {
+export const DelProductModal: React.FC<DelModalProps> = ({ modal, prodId, refetch }) => {
   /* DELETE PRODUCT FUNCTION */
   const { mutateAsync: mutateAsyncDel } = useDelProductById();
   const delProduct = async () => {
     await mutateAsyncDel(prodId);
-    onClose();
+    modal.onClose();
     refetch();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
+    <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered autoFocus={false}>
       <ModalOverlay />
       <ModalContent>
         <ModalBody>
@@ -43,7 +29,7 @@ export const DelProductModal: React.FC<ModalProps> = ({ isOpen, onClose, prodId,
               <Button colorScheme={"green"} mr={1} onClick={delProduct}>
                 Confirmar
               </Button>
-              <Button colorScheme={"red"} onClick={onClose}>
+              <Button colorScheme={"red"} onClick={modal.onClose}>
                 Cancelar
               </Button>
             </Flex>

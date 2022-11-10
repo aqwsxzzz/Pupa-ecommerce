@@ -20,3 +20,8 @@ export interface EditNewProductsInt {
   description: string;
   categoryId: string;
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}

@@ -13,7 +13,12 @@ interface Card {
 }
 
 export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
+  /* CHAKRA MODAL FUNCS */
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const modal = {
+    isOpen,
+    onClose,
+  };
   const { data: dataCategories, isLoading: isLoadingCategory } = useGetCategories();
   const [editStatus, setEditStatus] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
@@ -153,13 +158,7 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
           <RiDeleteBin7Fill />
         </Button>
       </Box>
-      <DelProductModal
-        isOpen={isOpen}
-        onClose={onClose}
-        prodId={prod._id}
-        editSwitch={editSwitch}
-        refetch={refetch}
-      />
+      <DelProductModal modal={modal} prodId={prod._id} refetch={refetch} />
     </Flex>
   );
 };

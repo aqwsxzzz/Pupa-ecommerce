@@ -14,11 +14,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { EmailIcon, ArrowForwardIcon, PhoneIcon } from "@chakra-ui/icons";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { ModalProps } from "Utils/Interfaces";
 
 export const ContactUsModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const CancelForm = () => {
