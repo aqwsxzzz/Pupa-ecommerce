@@ -1,14 +1,16 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
 import { useGetProducts } from "../../Api/Products/get_products";
 import { ProductsProps } from "../../Utils/Interfaces";
 import { ProductsAdminCard } from "../Admin/Products";
 import { RootState, useAppSelector } from "Store/store";
+import { CategoriesModal } from "Components/Modals/CategoriesModal";
 
 export const Admin: React.FC = () => {
   const { refetch: refetchProducts } = useGetProducts();
   const { products } = useAppSelector((state: RootState) => state.productsSlice);
+  const { isOpen: isOpenCategories, onOpen: onOpenCategories, onClose: onCloseCategories } = useDisclosure();
 
   const refetchFunc = () => {
     refetchProducts();
@@ -37,9 +39,17 @@ export const Admin: React.FC = () => {
           </Flex>
         </Box>
         <Flex flex={"1"} justifyContent={"center"}>
-          <Text m={"auto"} color={"#B83280"} fontFamily={"sans-serif"} fontWeight={"bold"} cursor={"pointer"}>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+            onClick={onOpenCategories}
+          >
             Categorias
           </Text>
+          <CategoriesModal isOpen={isOpenCategories} onClose={onCloseCategories} />
         </Flex>
       </Flex>
       <Flex w={"100%"} justifyContent={"center"}>
