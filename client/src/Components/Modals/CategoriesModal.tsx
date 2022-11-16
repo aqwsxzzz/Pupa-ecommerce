@@ -16,18 +16,26 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { CategoriesProps, ModalProps } from "Utils/Interfaces";
-import { useGetCategories, useGetCategoryById } from "Api/Categories/get_categories";
+import {
+  useGetCategories,
+  useGetCategoryById,
+} from "Api/Categories/get_categories";
 import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri";
 import { TiCancel, TiTick } from "react-icons/ti";
 import { useNewCategory } from "Api/Categories/post_categories";
 
 export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { data: dataCategories, isLoading: isLoadingCategories } = useGetCategories();
+  const { data: dataCategories, isLoading: isLoadingCategories } =
+    useGetCategories();
   const [newCategory, setNewCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
 
-  const { mutateAsync } = useNewCategory();
+  const { mutateAsync: mutateAsyncNewCategory } = useNewCategory();
+  const createNewCategory = async () => {
+    await mutateAsyncNewCategory(newCategoryName);
+  };
 
-  const newCategoryHandler = () => {
+  const newCategorySwitch = () => {
     setNewCategory(!newCategory);
   };
 
@@ -47,13 +55,18 @@ export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                   <Button mr={1}>
                     <TiTick color={"#B83280"} />
                   </Button>
-                  <Button onClick={newCategoryHandler}>
+                  <Button onClick={newCategorySwitch}>
                     <TiCancel color={"#B83280"} />
                   </Button>
                 </Flex>
               </Flex>
             ) : (
-              <Button textColor={"#B83280"} mx={"auto"} mt={4} onClick={newCategoryHandler}>
+              <Button
+                textColor={"#B83280"}
+                mx={"auto"}
+                mt={4}
+                onClick={newCategorySwitch}
+              >
                 Agregar Categoria
               </Button>
             )}
