@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useMutation } from "react-query";
 import url from "../url";
 import { ProductsProps } from "../../Utils/Interfaces";
 
@@ -15,6 +14,4 @@ const editProduct = (editedProduct: ProductsProps) => {
   });
 };
 
-export const useEditProduct = () => {
-  return useMutation(editProduct);
-};
+export { editProduct };

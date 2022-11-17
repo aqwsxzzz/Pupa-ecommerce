@@ -25,3 +25,9 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+export interface DelModalProps {
+  modal: ModalProps;
+  id: string;
+  refetch: () => void;
+}

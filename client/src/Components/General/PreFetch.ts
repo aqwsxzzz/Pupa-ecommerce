@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "Store/store";
 import { getProducts } from "Store/slices/products/actions";
-import { useGetProducts } from "../../Api/Products/get_products";
+import { APIS } from "Api/managersExport";
 
 export const PreFetch: React.FC = () => {
-  const { data: dataProducts } = useGetProducts();
+  const { data: dataProducts } = APIS.productManager.useGetProducts();
   const dispatch = useAppDispatch();
 
   const productsInfo = () => {

@@ -3,11 +3,11 @@ import { Flex, Text, Modal, ModalOverlay, ModalContent, ModalBody, Button } from
 import { APIS } from "Api/managersExport";
 import { DelModalProps } from "../../Utils/Interfaces";
 
-export const DelProductModal: React.FC<DelModalProps> = ({ modal, id, refetch }) => {
-  /* DELETE PRODUCT FUNCTION */
-  const { mutateAsync: mutateAsyncDel } = APIS.productManager.useDelProductById();
-  const delProduct = async () => {
-    await mutateAsyncDel(id);
+export const DelCategoryModal: React.FC<DelModalProps> = ({ modal, id, refetch }) => {
+  const { mutateAsync: mutateAsyncDelCategory } = APIS.categoryManager.useDelCategoryById();
+  /* DELETE CATEGORY FUNCTION */
+  const delCategory = async () => {
+    await mutateAsyncDelCategory(id);
     modal.onClose();
     refetch();
   };
@@ -18,9 +18,11 @@ export const DelProductModal: React.FC<DelModalProps> = ({ modal, id, refetch })
       <ModalContent>
         <ModalBody>
           <Flex direction={"column"}>
-            <Text textAlign={"center"}>Realmente quieres borrar este producto?</Text>
+            <Text textAlign={"center"}>
+              Realmente quieres borrar esta Categoria? (Se borraran los productos que contengan la categoria).
+            </Text>
             <Flex justifyContent={"center"} mt={4}>
-              <Button colorScheme={"green"} mr={1} onClick={delProduct}>
+              <Button colorScheme={"green"} mr={1} onClick={delCategory}>
                 Confirmar
               </Button>
               <Button colorScheme={"red"} onClick={modal.onClose}>

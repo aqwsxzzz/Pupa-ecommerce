@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
-
-import { useGetProductsPaginated } from "../../Api/Products/get_products";
+import { APIS } from "Api/managersExport";
 import { ProductsProps } from "../../Utils/Interfaces";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
@@ -11,7 +10,7 @@ export const Pagination: React.FC = () => {
     page: "1",
     limit: limit,
   });
-  const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
+  const { data, isLoading, refetch } = APIS.productManager.useGetProductsPaginated(pagination);
   const [pagesArray, setPagesArray] = useState<number[]>([]);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */

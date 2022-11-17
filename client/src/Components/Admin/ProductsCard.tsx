@@ -3,8 +3,9 @@ import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-u
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
-import { useEditProduct } from "../../Api/Products/put_products";
-import { useGetCategories } from "../../Api/Categories/get_categories";
+import { APIS } from "Api/managersExport";
+import { productManager } from "Api/Products/productExports";
+import { useEditP } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 
 interface Card {
@@ -19,7 +20,8 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
     isOpen,
     onClose,
   };
-  const { data: dataCategories, isLoading: isLoadingCategory } = useGetCategories();
+
+  const { data: dataCategories, isLoading: isLoadingCategory } = APIS.categoryManager.useGetCategories();
   const [editStatus, setEditStatus] = useState(false);
   const [editedProduct, setEditedProduct] = useState({
     _id: prod._id,
@@ -45,7 +47,7 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
   };
 
   const categoryHandler = (e: any) => {
-    const value = e.target.value;
+    const value = e.target.key;
     for (let i = 0; i < dataCategories?.data.length; i++) {
       if (value === dataCategories?.data[i]._id) {
         setEditedProduct({
@@ -56,9 +58,9 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
     }
   };
 
-  /* SEND THE NEW PRODUC INFO */
+  /* SEND THE NEW PRODUCT INFO */
 
-  const { mutateAsync: mutateAsyncEdit } = useEditProduct();
+  const { mutateAsync: mutateAsyncEdit } = useEditP();
   const editProduct = async () => {
     await mutateAsyncEdit(editedProduct);
     editSwitch();
@@ -112,7 +114,7 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
         {isLoadingCategory
           ? null
           : dataCategories?.data.map((cat: CategoriesProps) => (
-              <option value={cat._id} key={cat._id} label={cat._id} onSelect={categoryHandler}>
+              <option value={cat.name} key={cat._id} label={cat._id} onSelect={categoryHandler}>
                 {cat.name}
               </option>
             ))}
@@ -158,7 +160,7 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
           <RiDeleteBin7Fill />
         </Button>
       </Box>
-      <DelProductModal modal={modal} prodId={prod._id} refetch={refetch} />
+      <DelProductModal modal={modal} id={prod._id} refetch={refetch} />
     </Flex>
   );
 };

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useMutation } from "react-query";
 import url from "Api/url";
 
 /* CREATE A NEW CATEGORY */
@@ -14,8 +13,4 @@ const newCategory = async (name: string) => {
     });
 };
 
-const useNewCategory = () => {
-  return useMutation(newCategory);
-};
-
-export { useNewCategory };
+export { newCategory };

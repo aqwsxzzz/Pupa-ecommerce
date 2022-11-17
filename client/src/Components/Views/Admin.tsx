@@ -1,14 +1,14 @@
 import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
-import { useGetProducts } from "../../Api/Products/get_products";
+import { APIS } from "Api/managersExport";
 import { ProductsProps } from "../../Utils/Interfaces";
-import { ProductsAdminCard } from "../Admin/Products";
+import { ProductsAdminCard } from "../Admin/ProductsCard";
 import { RootState, useAppSelector } from "Store/store";
 import { CategoriesModal } from "Components/Modals/CategoriesModal";
 
 export const Admin: React.FC = () => {
-  const { refetch: refetchProducts } = useGetProducts();
+  const { refetch: refetchProducts } = APIS.productManager.useGetProducts();
   const { products } = useAppSelector((state: RootState) => state.productsSlice);
   const { isOpen: isOpenCategories, onOpen: onOpenCategories, onClose: onCloseCategories } = useDisclosure();
 

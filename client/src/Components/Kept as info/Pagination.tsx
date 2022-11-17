@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
-
-import { useGetProductsPaginated } from "../../Api/Products/get_products";
-import { useGetCategories } from "../../Api/Categories/get_categories";
-import { ProductsProps, CategoriesProps } from "../../Utils/Interfaces";
+import { APIS } from "Api/managersExport";
+import { ProductsProps } from "../../Utils/Interfaces";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const Pagination: React.FC = () => {
@@ -12,11 +10,10 @@ export const Pagination: React.FC = () => {
     page: "1",
     limit: limit,
   });
-  const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
-  const { data: categoryData, isLoading: isLoadingCategory } = useGetCategories();
+  const { data, isLoading, refetch } = APIS.productManager.useGetProductsPaginated(pagination);
+  const { data: categoryData } = APIS.categoryManager.useGetCategories();
 
   const [pagesArray, setPagesArray] = useState<number[]>([]);
-  const [categoriesArray, setCategoriesArray] = useState<CategoriesProps[]>([]);
   const [categoryNumber, setCategoryNumber] = useState(0);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */

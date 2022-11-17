@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Box, Button, Flex, Text, SimpleGrid, Image } from "@chakra-ui/react";
-import { useGetProducts } from "../../Api/Products/get_products";
-import { useGetCategories } from "../../Api/Categories/get_categories";
+import { APIS } from "Api/managersExport";
 import { ProductsProps } from "../../Utils/Interfaces";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const ProductsInfo: React.FC = () => {
   /* GET COMPLETE DATA FROM API */
-  const { data: dataProducts } = useGetProducts();
-  const { data: dataCategories } = useGetCategories();
+  const { data: dataProducts } = APIS.productManager.useGetProducts();
+  const { data: dataCategories } = APIS.categoryManager.useGetCategories();
 
   /* ARRAY OF PRODUCTS TO BE DISPLAYED */
 
