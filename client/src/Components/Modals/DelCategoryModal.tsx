@@ -19,7 +19,10 @@ export const DelCategoryModal: React.FC<DelModalProps> = ({ modal, id, refetch }
         <ModalBody>
           <Flex direction={"column"}>
             <Text textAlign={"center"}>
-              Realmente quieres borrar esta Categoria? (Se borraran los productos que contengan la categoria).
+              Realmente quieres borrar esta Categoria?
+              <Text as={"span"} display={"table"}>
+                (Se borraran los productos que contengan la categoria).
+              </Text>
             </Text>
             <Flex justifyContent={"center"} mt={4}>
               <Button colorScheme={"green"} mr={1} onClick={delCategory}>
