@@ -47,7 +47,6 @@ export const Pagination: React.FC = () => {
   useEffect(() => {
     refetch();
     setPageArrayInfo();
-    console.log(pagesArray);
   }, [pagination]);
 
   /* SET THE PAGESARRAY INFO DEPENDING ON THE USERS CHOICE*/

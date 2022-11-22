@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
-import { APIS } from "Api/managersExport";
-import { productManager } from "Api/Products/productExports";
 import { useEditP } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
+import { RootState, useAppSelector } from "../../Store/store";
 
 interface Card {
   prod: ProductsProps;
@@ -21,8 +20,9 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
     onClose,
   };
 
-  const { data: dataCategories, isLoading: isLoadingCategory } = APIS.categoryManager.useGetCategories();
+  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
   const [editStatus, setEditStatus] = useState(false);
+
   const [editedProduct, setEditedProduct] = useState({
     _id: prod._id,
     name: prod.name,
@@ -47,12 +47,12 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
   };
 
   const categoryHandler = (e: any) => {
-    const value = e.target.key;
-    for (let i = 0; i < dataCategories?.data.length; i++) {
-      if (value === dataCategories?.data[i]._id) {
+    const value = e.target.value;
+    for (let i = 0; i < categories.length; i++) {
+      if (value === categories[i].name) {
         setEditedProduct({
           ...editedProduct,
-          category: { _id: dataCategories?.data[i]._id, name: dataCategories?.data[i].name },
+          category: { _id: categories[i]._id, name: categories[i].name },
         });
       }
     }
@@ -111,13 +111,13 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
         defaultValue={editedProduct.category.name}
         onChange={categoryHandler}
       >
-        {isLoadingCategory
-          ? null
-          : dataCategories?.data.map((cat: CategoriesProps) => (
-              <option value={cat.name} key={cat._id} label={cat._id} onSelect={categoryHandler}>
+        {categories
+          ? categories.map((cat: CategoriesProps) => (
+              <option value={cat.name} key={cat._id}>
                 {cat.name}
               </option>
-            ))}
+            ))
+          : null}
       </Select>
       <Input
         name={"description"}
