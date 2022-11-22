@@ -40,7 +40,8 @@ export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   /* CREATE THE NEW CATEGORY, SWITCH FORM OFF AND REFETCH CATEGORIES DATA WITH NEW INFO */
-  const { mutateAsync: mutateAsyncNewCategory } = APIS.categoryManager.useNewCategory();
+  const { mutateAsync: mutateAsyncNewCategory } =
+    APIS.categoryManager.useNewCategory();
   const createNewCategory = async () => {
     await mutateAsyncNewCategory(newCategoryName);
     newCategorySwitch();
@@ -58,7 +59,11 @@ export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </Text>
             {newCategory ? (
               <Flex mx={"auto"} mt={4}>
-                <Input bgColor={"white"} mr={1} onChange={newCategoryNameHandler}></Input>
+                <Input
+                  bgColor={"white"}
+                  mr={1}
+                  onChange={newCategoryNameHandler}
+                ></Input>
                 <Flex>
                   <Button mr={1} onClick={createNewCategory}>
                     <TiTick color={"#B83280"} />
@@ -69,7 +74,12 @@ export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 </Flex>
               </Flex>
             ) : (
-              <Button textColor={"#B83280"} mx={"auto"} mt={4} onClick={newCategorySwitch}>
+              <Button
+                textColor={"#B83280"}
+                mx={"auto"}
+                mt={4}
+                onClick={newCategorySwitch}
+              >
                 Agregar Categoria
               </Button>
             )}
@@ -80,7 +90,11 @@ export const CategoriesModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             {isLoadingCategories
               ? null
               : dataCategories?.data.map((cat: CategoriesProps) => (
-                  <CategoryAdminCard cat={cat} key={cat._id} refetchCategory={refetchCategory} />
+                  <CategoryAdminCard
+                    cat={cat}
+                    key={cat._id}
+                    refetchCategory={refetchCategory}
+                  />
                 ))}
           </Flex>
         </ModalBody>
