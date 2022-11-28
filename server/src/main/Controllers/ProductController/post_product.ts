@@ -15,7 +15,7 @@ const newProduct = async (req: Request, res: Response, next: NextFunction) => {
         image: req.file?.path,
         price,
         category,
-        description,
+        //description,
       });
       await product.save();
       return res.json(product);

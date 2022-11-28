@@ -11,7 +11,6 @@ import {
   ModalHeader,
 } from "@chakra-ui/react";
 import { CategoriesProps, ModalProps } from "Utils/Interfaces";
-import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri";
 import { TiCancel, TiTick } from "react-icons/ti";
 import { APIS } from "Api/managersExport";
 import { CategoryAdminCard } from "Components/Admin/CategoriesCard";

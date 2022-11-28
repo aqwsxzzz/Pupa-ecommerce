@@ -9,6 +9,9 @@ import { getProducts, getProductsPaginated } from "./get_products";
 /* "put" APIS */
 import { editProduct } from "./put_products";
 
+/* "post" APIS */
+import { newProduct } from "./post_products";
+
 /* "del" exports */
 const useDelProductById = () => useMutation(delProductById);
 
@@ -27,4 +30,15 @@ export const useEditP = () => {
   return useMutation(editProduct);
 };
 
-export const productManager = { useDelProductById, useGetProducts, useGetProductsPaginated, useEditProduct };
+/* "post" exports */
+export const useNewProduct = () => {
+  return useMutation(newProduct);
+};
+
+export const productManager = {
+  useDelProductById,
+  useGetProducts,
+  useGetProductsPaginated,
+  useEditProduct,
+  useNewProduct,
+};

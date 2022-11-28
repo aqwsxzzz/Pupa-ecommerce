@@ -6,6 +6,12 @@ export interface ProductsProps {
   description: string;
   category: CategoriesProps;
 }
+export interface NewProductProps {
+  name: string;
+  image: string;
+  price: string;
+  categoryId: string;
+}
 
 export interface CategoriesProps {
   _id: string;
