@@ -1,4 +1,6 @@
 import { useQuery, useMutation } from "react-query";
+import { useAppDispatch } from "Store/store";
+import { addNewCategory } from "Store/slices/categories/actions";
 
 /* "Get" apis */
 import { getCategories, getCategoryById } from "./get_categories";
@@ -14,11 +16,18 @@ import { delCategoryById } from "./del_category";
 
 /* "Get" exports */
 const useGetCategories = () => useQuery(["categories"], () => getCategories());
-const useGetCategoryById = (id: string) => useQuery(["categoryById"], () => getCategoryById(id));
+const useGetCategoryById = (id: string) =>
+  useQuery(["categoryById"], () => getCategoryById(id));
 
 /* "Post" exports */
 const useNewCategory = () => {
-  return useMutation(newCategory);
+  const dispatch = useAppDispatch();
+
+  return useMutation(newCategory, {
+    onSuccess: (data) => {
+      addNewCategory(data, dispatch);
+    },
+  });
 };
 
 /* "Put" exports */

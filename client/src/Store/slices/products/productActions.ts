@@ -19,6 +19,12 @@ const productSlice = createSlice({
     addNewProduct: (state, action) => {
       state.products.push(action.payload);
     },
+    delProduct: (state, action) => {
+      state.products.splice(
+        state.products.findIndex((elem) => elem._id === action.payload._id),
+        1
+      );
+    },
   },
 });
 

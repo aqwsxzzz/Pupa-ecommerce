@@ -6,7 +6,10 @@ const productsInfo = (data: AxiosResponse<any, any> | undefined) => ({
   payload: data?.data,
 });
 
-export const getProducts = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+export const getProducts = (
+  data: AxiosResponse<any, any> | undefined,
+  dispatch: AppDispatch
+) => {
   dispatch(productsInfo(data));
 };
 
@@ -15,6 +18,21 @@ const newProduct = (data: AxiosResponse<any, any> | undefined) => ({
   payload: data?.data,
 });
 
-export const addNewProduct = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+export const addNewProduct = (
+  data: AxiosResponse<any, any> | undefined,
+  dispatch: AppDispatch
+) => {
   dispatch(newProduct(data));
+};
+
+const productToDelete = (data: AxiosResponse<any, any> | undefined) => ({
+  type: "product/delProduct",
+  payload: data?.data,
+});
+
+export const delProduct = (
+  data: AxiosResponse<any, any> | undefined,
+  dispatch: AppDispatch
+) => {
+  dispatch(productToDelete(data));
 };

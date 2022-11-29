@@ -6,6 +6,21 @@ const categoriesInfo = (data: AxiosResponse<any, any> | undefined) => ({
   payload: data?.data,
 });
 
-export const getCategories = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+export const getCategories = (
+  data: AxiosResponse<any, any> | undefined,
+  dispatch: AppDispatch
+) => {
   dispatch(categoriesInfo(data));
+};
+
+const newCategory = (data: AxiosResponse<any, any> | undefined) => ({
+  type: "category/addNewCategory",
+  payload: data?.data,
+});
+
+export const addNewCategory = (
+  data: AxiosResponse<any, any> | undefined,
+  dispatch: AppDispatch
+) => {
+  dispatch(newCategory(data));
 };
