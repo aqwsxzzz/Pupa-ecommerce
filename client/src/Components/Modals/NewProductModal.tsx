@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Flex,
   Input,
@@ -11,37 +11,35 @@ import {
   ModalHeader,
   FormControl,
   Select,
-  Box,
 } from "@chakra-ui/react";
 import { APIS } from "Api/managersExport";
 import { NewProductProps, ModalProps, CategoriesProps } from "Utils/Interfaces";
 import { RootState, useAppSelector } from "Store/store";
 
-export const NewProductModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+interface newProd {
+  modal: ModalProps;
+  refetchProducts: () => void;
+}
+
+export const NewProductModal: React.FC<newProd> = ({ modal, refetchProducts }) => {
   /* DATA FOR THE NEW PRODUCT TO CREATE */
-  const [product, setProduct] = useState<NewProductProps>({
+  const [productInfo, setProductInfo] = useState<NewProductProps>({
     name: "",
     image: "",
     price: "",
     categoryId: "",
   });
 
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
-
   /* RETRIEVE THE CATEGORIES FROM REDUX STORE */
-  const { categories } = useAppSelector(
-    (state: RootState) => state.categoriesSlice
-  );
+  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
 
   /* RETRIVE THE INFO NEEDED FROM THE PICKED CATEGORY AND SAVE IT TO THE PRODUCT STATE */
   const categoryHandler = (e: any) => {
     const value = e.target.value;
     for (let i = 0; i < categories.length; i++) {
       if (value === categories[i].name) {
-        setProduct({
-          ...product,
+        setProductInfo({
+          ...productInfo,
           categoryId: categories[i]._id,
         });
       }
@@ -51,30 +49,30 @@ export const NewProductModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   /* RETRIEVE NEEDED INFO FROM INPUTS AND SAVE IT TO THE PRODUCT STATE */
   const inputsHandler = (e: any) => {
     const value = e.target.value;
-    setProduct({
-      ...product,
+    setProductInfo({
+      ...productInfo,
       [e.target.name]: value,
     });
   };
 
   /* SET THE UPLOADED IMAGE IN THE PRODUCT STATE */
   const imageHandler = (e: any) => {
-    setProduct({
-      ...product,
+    setProductInfo({
+      ...productInfo,
       image: e.target.files[0],
     });
   };
 
   /* FUNCTIONS TO CREATE NEW PRODUCT */
-  const { mutateAsync: mutateAsyncNewProduct } =
-    APIS.productManager.useNewProduct();
+  const { mutateAsync: mutateAsyncNewProduct } = APIS.productManager.useNewProduct();
   const createNewProduct = async () => {
-    await mutateAsyncNewProduct(product);
-    onClose();
+    await mutateAsyncNewProduct(productInfo);
+    //refetchProducts();
+    modal.onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
+    <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered autoFocus={false}>
       <ModalOverlay />
       <ModalContent bgColor={"#f0d3e9"} maxW={"400px"}>
         <ModalHeader>

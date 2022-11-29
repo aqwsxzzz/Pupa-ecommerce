@@ -9,3 +9,12 @@ const productsInfo = (data: AxiosResponse<any, any> | undefined) => ({
 export const getProducts = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
   dispatch(productsInfo(data));
 };
+
+const newProduct = (data: AxiosResponse<any, any> | undefined) => ({
+  type: "product/addNewProduct",
+  payload: data?.data,
+});
+
+export const addNewProduct = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+  dispatch(newProduct(data));
+};

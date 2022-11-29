@@ -16,6 +16,9 @@ const productSlice = createSlice({
     getProducts: (state, action) => {
       state.products = action.payload.products;
     },
+    addNewProduct: (state, action) => {
+      state.products.push(action.payload);
+    },
   },
 });
 

@@ -1,4 +1,7 @@
 import { useMutation, useQuery } from "react-query";
+/* Redux actions */
+import { useAppDispatch } from "Store/store";
+import { addNewProduct } from "Store/slices/products/actions";
 
 /* "del" APIS */
 import { delProductById } from "./del_products";
@@ -11,6 +14,8 @@ import { editProduct } from "./put_products";
 
 /* "post" APIS */
 import { newProduct } from "./post_products";
+
+/* Redux dispatch */
 
 /* "del" exports */
 const useDelProductById = () => useMutation(delProductById);
@@ -32,7 +37,13 @@ export const useEditP = () => {
 
 /* "post" exports */
 export const useNewProduct = () => {
-  return useMutation(newProduct);
+  const dispatch = useAppDispatch();
+
+  return useMutation(newProduct, {
+    onSuccess: (data) => {
+      addNewProduct(data, dispatch);
+    },
+  });
 };
 
 export const productManager = {
