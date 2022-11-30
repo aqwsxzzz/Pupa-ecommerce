@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch } from "Store/store";
-import { getProducts } from "Store/slices/products/actions";
-import { getCategories } from "Store/slices/categories/actions";
+import { dispatchGetProducts } from "Store/slices/products/actions";
+import { dispatchGetCategories } from "Store/slices/categories/actions";
 import { APIS } from "Api/managersExport";
 
 export const PreFetch: React.FC = () => {
@@ -12,7 +12,7 @@ export const PreFetch: React.FC = () => {
   const { data: dataCategories } = APIS.categoryManager.useGetCategories();
 
   const categoriesInfo = () => {
-    getCategories(dataCategories, dispatchCat);
+    dispatchGetCategories(dataCategories, dispatchCat);
   };
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const PreFetch: React.FC = () => {
   const { data: dataProducts } = APIS.productManager.useGetProducts();
 
   const productsInfo = () => {
-    getProducts(dataProducts, dispatchProd);
+    dispatchGetProducts(dataProducts, dispatchProd);
   };
 
   useEffect(() => {

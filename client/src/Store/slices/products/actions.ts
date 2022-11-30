@@ -1,16 +1,13 @@
 import { AxiosResponse } from "axios";
 import { AppDispatch } from "Store/store";
 
-const productsInfo = (data: AxiosResponse<any, any> | undefined) => ({
+const getProducts = (data: AxiosResponse<any, any> | undefined) => ({
   type: "product/getProducts",
   payload: data?.data,
 });
 
-export const getProducts = (
-  data: AxiosResponse<any, any> | undefined,
-  dispatch: AppDispatch
-) => {
-  dispatch(productsInfo(data));
+export const dispatchGetProducts = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+  dispatch(getProducts(data));
 };
 
 const newProduct = (data: AxiosResponse<any, any> | undefined) => ({
@@ -18,10 +15,7 @@ const newProduct = (data: AxiosResponse<any, any> | undefined) => ({
   payload: data?.data,
 });
 
-export const addNewProduct = (
-  data: AxiosResponse<any, any> | undefined,
-  dispatch: AppDispatch
-) => {
+export const dispatchNewProduct = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
   dispatch(newProduct(data));
 };
 
@@ -30,9 +24,18 @@ const productToDelete = (data: AxiosResponse<any, any> | undefined) => ({
   payload: data?.data,
 });
 
-export const delProduct = (
+export const dispatchDelProduct = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
+  dispatch(productToDelete(data));
+};
+
+const productsByCategory = (data: AxiosResponse<any, any> | undefined) => ({
+  type: "product/delProductsByCategory",
+  payload: data?.data,
+});
+
+export const dispatchDelProductsByCategory = (
   data: AxiosResponse<any, any> | undefined,
   dispatch: AppDispatch
 ) => {
-  dispatch(productToDelete(data));
+  dispatch(productsByCategory(data));
 };

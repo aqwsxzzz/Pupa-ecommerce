@@ -25,6 +25,15 @@ const productSlice = createSlice({
         1
       );
     },
+    delProductsByCategory: (state, action) => {
+      const arr = state.products.filter((e) => e.category._id === action.payload._id);
+      arr.forEach((f) =>
+        state.products.splice(
+          state.products.findIndex((e) => e._id === f._id),
+          1
+        )
+      );
+    },
   },
 });
 

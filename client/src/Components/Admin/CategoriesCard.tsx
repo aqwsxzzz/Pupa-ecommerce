@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, Input, Text, useDisclosure } from "@chakra-ui/react";
 import { RiDeleteBin7Fill, RiEdit2Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
 import { CategoriesProps } from "Utils/Interfaces";
@@ -78,7 +78,7 @@ export const CategoryAdminCard: React.FC<Card> = ({ cat, refetchCategory }) => {
         <Button onClick={onOpen}>
           <RiDeleteBin7Fill color="#B83280" />
         </Button>
-        <DelCategoryModal modal={modal} id={cat._id} refetch={refetchCategory} />
+        <DelCategoryModal modal={modal} id={cat._id} />
       </Flex>
     </Flex>
   );

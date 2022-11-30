@@ -1,6 +1,9 @@
 import { useQuery, useMutation } from "react-query";
+
+/* Redux imports */
 import { useAppDispatch } from "Store/store";
-import { addNewCategory } from "Store/slices/categories/actions";
+import { dispatchNewCategory, dispatchDelCategory } from "Store/slices/categories/actions";
+import { dispatchDelProductsByCategory } from "Store/slices/products/actions";
 
 /* "Get" apis */
 import { getCategories, getCategoryById } from "./get_categories";
@@ -16,8 +19,7 @@ import { delCategoryById } from "./del_category";
 
 /* "Get" exports */
 const useGetCategories = () => useQuery(["categories"], () => getCategories());
-const useGetCategoryById = (id: string) =>
-  useQuery(["categoryById"], () => getCategoryById(id));
+const useGetCategoryById = (id: string) => useQuery(["categoryById"], () => getCategoryById(id));
 
 /* "Post" exports */
 const useNewCategory = () => {
@@ -25,7 +27,7 @@ const useNewCategory = () => {
 
   return useMutation(newCategory, {
     onSuccess: (data) => {
-      addNewCategory(data, dispatch);
+      dispatchNewCategory(data, dispatch);
     },
   });
 };
@@ -36,7 +38,15 @@ const useEditCategory = () => {
 };
 
 /* "Del" exports */
-const useDelCategoryById = () => useMutation(delCategoryById);
+const useDelCategoryById = () => {
+  const dispatch = useAppDispatch();
+  return useMutation(delCategoryById, {
+    onSuccess: (data) => {
+      dispatchDelCategory(data, dispatch);
+      dispatchDelProductsByCategory(data, dispatch);
+    },
+  });
+};
 
 export const categoryManager = {
   useGetCategories,

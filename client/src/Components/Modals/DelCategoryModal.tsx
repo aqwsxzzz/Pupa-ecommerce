@@ -3,13 +3,12 @@ import { Flex, Text, Modal, ModalOverlay, ModalContent, ModalBody, Button } from
 import { APIS } from "Api/managersExport";
 import { DelModalProps } from "../../Utils/Interfaces";
 
-export const DelCategoryModal: React.FC<DelModalProps> = ({ modal, id, refetch }) => {
+export const DelCategoryModal: React.FC<DelModalProps> = ({ modal, id }) => {
   const { mutateAsync: mutateAsyncDelCategory } = APIS.categoryManager.useDelCategoryById();
   /* DELETE CATEGORY FUNCTION */
   const delCategory = async () => {
     await mutateAsyncDelCategory(id);
     modal.onClose();
-    refetch();
   };
 
   return (

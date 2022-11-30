@@ -18,10 +18,9 @@ import { RootState, useAppSelector } from "Store/store";
 
 interface newProd {
   modal: ModalProps;
-  refetchProducts: () => void;
 }
 
-export const NewProductModal: React.FC<newProd> = ({ modal, refetchProducts }) => {
+export const NewProductModal: React.FC<newProd> = ({ modal }) => {
   /* DATA FOR THE NEW PRODUCT TO CREATE */
   const [productInfo, setProductInfo] = useState<NewProductProps>({
     name: "",
@@ -67,7 +66,6 @@ export const NewProductModal: React.FC<newProd> = ({ modal, refetchProducts }) =
   const { mutateAsync: mutateAsyncNewProduct } = APIS.productManager.useNewProduct();
   const createNewProduct = async () => {
     await mutateAsyncNewProduct(productInfo);
-    //refetchProducts();
     modal.onClose();
   };
 

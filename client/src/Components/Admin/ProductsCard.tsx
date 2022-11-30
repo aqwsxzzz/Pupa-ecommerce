@@ -7,12 +7,11 @@ import { useEditP } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 import { RootState, useAppSelector } from "../../Store/store";
 
-interface Card {
+interface card {
   prod: ProductsProps;
-  refetch: () => void;
 }
 
-export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
+export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
   /* CHAKRA MODAL FUNCS */
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modal = {
@@ -160,7 +159,7 @@ export const ProductsAdminCard: React.FC<Card> = ({ prod, refetch }) => {
           <RiDeleteBin7Fill />
         </Button>
       </Box>
-      <DelProductModal modal={modal} id={prod._id} refetch={refetch} />
+      <DelProductModal modal={modal} id={prod._id} />
     </Flex>
   );
 };

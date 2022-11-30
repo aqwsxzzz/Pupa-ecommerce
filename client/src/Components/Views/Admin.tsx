@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
-import { APIS } from "Api/managersExport";
 import { ModalProps, ProductsProps } from "../../Utils/Interfaces";
 import { ProductsAdminCard } from "../Admin/ProductsCard";
 import { RootState, useAppSelector } from "Store/store";
@@ -10,7 +9,6 @@ import { MdPostAdd } from "react-icons/md";
 import { NewProductModal } from "Components/Modals/NewProductModal";
 
 export const Admin: React.FC = () => {
-  const { refetch: refetchProducts } = APIS.productManager.useGetProducts();
   const { products } = useAppSelector((state: RootState) => state.productsSlice);
 
   /* CATEGORY MODAL FUNCS */
@@ -21,10 +19,6 @@ export const Admin: React.FC = () => {
   const modal: ModalProps = {
     isOpen: isOpenNewProduct,
     onClose: onCloseNewProduct,
-  };
-
-  const refetchFunc = () => {
-    refetchProducts();
   };
 
   return (
@@ -55,7 +49,7 @@ export const Admin: React.FC = () => {
             >
               <MdPostAdd />
             </Button>
-            <NewProductModal modal={modal} refetchProducts={refetchProducts} />
+            <NewProductModal modal={modal} />
           </Flex>
         </Flex>
         <Box
@@ -97,9 +91,7 @@ export const Admin: React.FC = () => {
           borderColor={"#B83280"}
         >
           {products
-            ? products.map((prod: ProductsProps) => (
-                <ProductsAdminCard prod={prod} refetch={refetchFunc} key={prod._id} />
-              ))
+            ? products.map((prod: ProductsProps) => <ProductsAdminCard prod={prod} key={prod._id} />)
             : null}
         </Flex>
       </Flex>

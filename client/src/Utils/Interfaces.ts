@@ -35,5 +35,4 @@ export interface ModalProps {
 export interface DelModalProps {
   modal: ModalProps;
   id: string;
-  refetch: () => void;
 }

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CategoriesProps } from "Utils/Interfaces";
-
 interface initialCatState {
   categories: CategoriesProps[];
 }
@@ -18,6 +17,12 @@ const categoriesSlice = createSlice({
     },
     addNewCategory: (state, action) => {
       state.categories.push(action.payload);
+    },
+    delCategory: (state, action) => {
+      state.categories.splice(
+        state.categories.findIndex((elem) => elem._id === action.payload._id),
+        1
+      );
     },
   },
 });
