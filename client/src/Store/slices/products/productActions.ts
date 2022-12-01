@@ -26,13 +26,21 @@ const productSlice = createSlice({
       );
     },
     delProductsByCategory: (state, action) => {
-      const arr = state.products.filter((e) => e.category._id === action.payload._id);
+      const arr = state.products.filter(
+        (e) => e.category._id === action.payload._id
+      );
       arr.forEach((f) =>
         state.products.splice(
           state.products.findIndex((e) => e._id === f._id),
           1
         )
       );
+    },
+    editProductsCategory: (state, action) => {
+      const arr = state.products.filter(
+        (e) => e.category._id === action.payload._id
+      );
+      arr.forEach((f) => (f.category.name = action.payload.name));
     },
   },
 });

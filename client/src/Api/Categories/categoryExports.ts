@@ -2,8 +2,14 @@ import { useQuery, useMutation } from "react-query";
 
 /* Redux imports */
 import { useAppDispatch } from "Store/store";
-import { dispatchNewCategory, dispatchDelCategory } from "Store/slices/categories/actions";
-import { dispatchDelProductsByCategory } from "Store/slices/products/actions";
+import {
+  dispatchNewCategory,
+  dispatchDelCategory,
+} from "Store/slices/categories/actions";
+import {
+  dispatchDelProductsByCategory,
+  dispatchEditProductsCategory,
+} from "Store/slices/products/actions";
 
 /* "Get" apis */
 import { getCategories, getCategoryById } from "./get_categories";
@@ -19,7 +25,8 @@ import { delCategoryById } from "./del_category";
 
 /* "Get" exports */
 const useGetCategories = () => useQuery(["categories"], () => getCategories());
-const useGetCategoryById = (id: string) => useQuery(["categoryById"], () => getCategoryById(id));
+const useGetCategoryById = (id: string) =>
+  useQuery(["categoryById"], () => getCategoryById(id));
 
 /* "Post" exports */
 const useNewCategory = () => {
@@ -34,7 +41,12 @@ const useNewCategory = () => {
 
 /* "Put" exports */
 const useEditCategory = () => {
-  return useMutation(editCategory);
+  const dispatch = useAppDispatch();
+  return useMutation(editCategory, {
+    onSuccess: (data) => {
+      dispatchEditProductsCategory(data, dispatch);
+    },
+  });
 };
 
 /* "Del" exports */
