@@ -4,5 +4,6 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/getAllCategories", CategoryController.getCategories);
+router.get("/getCategoryById/:id", CategoryController.getCategoryById);
 
 export { router };

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useQuery } from "react-query";
 import url from "../url";
 
 /* GET ALL CATEGORIES */
@@ -8,6 +7,10 @@ const getCategories = () => {
   return response;
 };
 
-const useGetCategories = () => useQuery(["categories"], () => getCategories());
+/* GET CATEGORY BY ID */
+const getCategoryById = (id: string) => {
+  const response = axios.get(`${url}/getCategoryById/${id}`);
+  return response;
+};
 
-export { useGetCategories };
+export { getCategories, getCategoryById };

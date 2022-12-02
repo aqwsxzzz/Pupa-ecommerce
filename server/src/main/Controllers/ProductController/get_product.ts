@@ -10,15 +10,11 @@ interface Props {
 
 /* GET ALL PRODUCTS */
 
-const getAllProducts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products = await ProductModel.find({}).populate("category");
 
-    res.status(200).json(products);
+    res.json({ products, status: 200 });
   } catch (error) {
     return next(error);
   }

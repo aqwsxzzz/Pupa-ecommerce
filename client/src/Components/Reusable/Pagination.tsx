@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Select,
-  Text,
-} from "@chakra-ui/react";
-
-import { useGetProductsPaginated } from "../../Api/Products/get_products";
-import { ProductsProps } from "../../Interfaces";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
+import { Box, Button, Flex, Grid, GridItem, Select, Text } from "@chakra-ui/react";
+import { APIS } from "Api/managersExport";
+import { ProductsProps } from "../../Utils/Interfaces";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const Pagination: React.FC = () => {
-  const [limit, setLimit] = useState("6");
+  const [limit] = useState("6");
   const [pagination, setPagination] = useState({
     page: "1",
     limit: limit,
   });
-  const { data, isLoading, refetch } = useGetProductsPaginated(pagination);
+  const { data, isLoading } = APIS.productManager.useGetProductsPaginated(pagination);
   const [pagesArray, setPagesArray] = useState<number[]>([]);
 
   /* SET THE NEW LIMIT VALUE IF THE USER CHANGES IT */
@@ -57,9 +45,9 @@ export const Pagination: React.FC = () => {
 
   /* REFETCH THE PAGINATION DATA EVERYTIME THE VALUES CHANGES */
   useEffect(() => {
-    refetch();
+    /* NEED CHANGES TO USE STORE INSTEAD OF AXIOS DATA */
+    //refetch();
     setPageArrayInfo();
-    console.log(pagesArray);
   }, [pagination]);
 
   /* SET THE PAGESARRAY INFO DEPENDING ON THE USERS CHOICE*/
@@ -117,13 +105,7 @@ export const Pagination: React.FC = () => {
                   </Box>
                 ))}
           </Flex>
-          <Button
-            onClick={nextPage}
-            p={0}
-            bgColor={"white"}
-            cursor={"default"}
-            _hover={{ bgColor: "white" }}
-          >
+          <Button onClick={nextPage} p={0} bgColor={"white"} cursor={"default"} _hover={{ bgColor: "white" }}>
             <BsFillArrowRightCircleFill color="#B83280" cursor={"pointer"} />
           </Button>
         </Flex>

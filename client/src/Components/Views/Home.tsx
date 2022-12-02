@@ -18,19 +18,8 @@ export const Home: React.FC = () => {
         <Flex w={"100%"} h={55} justifyContent={"center"}>
           <Text fontSize={"xx-large"}>Productos</Text>
         </Flex>
-        <Flex
-          direction={"row"}
-          justifyContent={"space-evenly"}
-          w={"100%"}
-          h={"350px"}
-          border={1}
-        >
-          <Box
-            border={"1px"}
-            maxH={"100%"}
-            w={"22.5%"}
-            style={{ overflow: "hidden" }}
-          >
+        <Flex direction={"row"} justifyContent={"space-evenly"} w={"100%"} h={"350px"} border={1}>
+          <Box border={"1px"} maxH={"100%"} w={"22.5%"} style={{ overflow: "hidden" }}>
             <Text
               position={"absolute"}
               style={{ writingMode: "vertical-lr", textOrientation: "upright" }}
