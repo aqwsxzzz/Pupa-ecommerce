@@ -45,7 +45,7 @@ export const Pagination: React.FC = () => {
 
   /* REFETCH THE PAGINATION DATA EVERYTIME THE VALUES CHANGES */
   useEffect(() => {
-    refetch();
+    //refetch();
     setPageArrayInfo();
   }, [pagination]);
 

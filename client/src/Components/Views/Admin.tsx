@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo2 from "../../Images/2.jpeg";
 import { ModalProps, ProductsProps } from "../../Utils/Interfaces";
 import { ProductsAdminCard } from "../Admin/ProductsCard";
@@ -10,6 +10,12 @@ import { NewProductModal } from "Components/Modals/NewProductModal";
 
 export const Admin: React.FC = () => {
   const { products } = useAppSelector((state: RootState) => state.productsSlice);
+  const [showProducts, setShowProducts] = useState(products);
+
+  useEffect(() => {
+    setShowProducts(products);
+    console.log(products);
+  }, [products]);
 
   /* CATEGORY MODAL FUNCS */
   const { isOpen: isOpenCategories, onOpen: onOpenCategories, onClose: onCloseCategories } = useDisclosure();
@@ -91,7 +97,7 @@ export const Admin: React.FC = () => {
           borderColor={"#B83280"}
         >
           {products
-            ? products.map((prod: ProductsProps) => <ProductsAdminCard prod={prod} key={prod._id} />)
+            ? showProducts.map((prod: ProductsProps) => <ProductsAdminCard prod={prod} key={prod._id} />)
             : null}
         </Flex>
       </Flex>

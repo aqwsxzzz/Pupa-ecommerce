@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { AppDispatch } from "Store/store";
+import { CategoriesProps } from "Utils/Interfaces";
 
 const getCategories = (data: AxiosResponse<any, any> | undefined) => ({
   type: "category/getCategories",
@@ -26,4 +27,13 @@ const delCategory = (data: AxiosResponse<any, any> | undefined) => ({
 
 export const dispatchDelCategory = (data: AxiosResponse<any, any> | undefined, dispatch: AppDispatch) => {
   dispatch(delCategory(data));
+};
+
+const editCategory = (data: CategoriesProps) => ({
+  type: "category/editCategory",
+  payload: data,
+});
+
+export const dispatchEditCategory = (data: CategoriesProps, dispatch: AppDispatch) => {
+  dispatch(editCategory(data));
 };

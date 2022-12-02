@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { ProductsProps } from "Utils/Interfaces";
 
 interface initialProdState {
@@ -26,21 +26,20 @@ const productSlice = createSlice({
       );
     },
     delProductsByCategory: (state, action) => {
-      const arr = state.products.filter(
-        (e) => e.category._id === action.payload._id
-      );
-      arr.forEach((f) =>
+      const arr = state.products.filter((prod) => prod.category._id === action.payload._id);
+      arr.forEach((prodToMatch) =>
         state.products.splice(
-          state.products.findIndex((e) => e._id === f._id),
+          state.products.findIndex((prodToDelete) => prodToDelete._id === prodToMatch._id),
           1
         )
       );
     },
     editProductsCategory: (state, action) => {
-      const arr = state.products.filter(
-        (e) => e.category._id === action.payload._id
-      );
-      arr.forEach((f) => (f.category.name = action.payload.name));
+      let arr = state.products;
+      arr.map((prod) => {
+        if (prod.category._id === action.payload._id) prod.category.name = action.payload.name;
+      });
+      state.products = arr;
     },
   },
 });

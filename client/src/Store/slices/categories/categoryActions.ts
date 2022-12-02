@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { CategoriesProps } from "Utils/Interfaces";
 interface initialCatState {
   categories: CategoriesProps[];
@@ -23,6 +23,15 @@ const categoriesSlice = createSlice({
         state.categories.findIndex((elem) => elem._id === action.payload._id),
         1
       );
+    },
+    editCategory: (state, action) => {
+      let arr = state.categories;
+      arr.map((elem) => {
+        if (elem._id === action.payload._id) {
+          elem.name = action.payload.name;
+        }
+      });
+      state.categories = arr;
     },
   },
 });

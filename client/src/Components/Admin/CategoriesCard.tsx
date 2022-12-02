@@ -5,13 +5,17 @@ import { TiTick, TiCancel } from "react-icons/ti";
 import { CategoriesProps } from "Utils/Interfaces";
 import { APIS } from "../../Api/managersExport";
 import { DelCategoryModal } from "Components/Modals/DelCategoryModal";
+import { dispatchEditCategory } from "Store/slices/categories/actions";
+import { dispatchEditProductsCategory } from "Store/slices/products/actions";
+import { useAppDispatch } from "Store/store";
 
 interface Card {
   cat: CategoriesProps;
-  refetchCategory: () => void;
 }
 
-export const CategoryAdminCard: React.FC<Card> = ({ cat, refetchCategory }) => {
+export const CategoryAdminCard: React.FC<Card> = ({ cat }) => {
+  const dispatch = useAppDispatch();
+
   /* Chakra modal */
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modal = {
@@ -40,8 +44,10 @@ export const CategoryAdminCard: React.FC<Card> = ({ cat, refetchCategory }) => {
   const { mutateAsync: mutateAsyncEdit } = APIS.categoryManager.useEditCategory();
   const editCategory = async () => {
     await mutateAsyncEdit(categoryEditData);
+    dispatchEditCategory(categoryEditData, dispatch);
+    dispatchEditProductsCategory(categoryEditData, dispatch);
+
     editCategorySwitch();
-    refetchCategory();
   };
 
   return editCategoryStatus ? (
