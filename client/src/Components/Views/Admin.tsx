@@ -14,7 +14,6 @@ export const Admin: React.FC = () => {
 
   useEffect(() => {
     setShowProducts(products);
-    console.log(products);
   }, [products]);
 
   /* CATEGORY MODAL FUNCS */

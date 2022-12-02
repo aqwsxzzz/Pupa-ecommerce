@@ -5,12 +5,12 @@ import { ProductsProps } from "../../Utils/Interfaces";
 import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 export const Pagination: React.FC = () => {
-  const [limit, setLimit] = useState("6");
+  const [limit] = useState("6");
   const [pagination, setPagination] = useState({
     page: "1",
     limit: limit,
   });
-  const { data, isLoading, refetch } = APIS.productManager.useGetProductsPaginated(pagination);
+  const { data, isLoading } = APIS.productManager.useGetProductsPaginated(pagination);
   const { data: categoryData } = APIS.categoryManager.useGetCategories();
 
   const [pagesArray, setPagesArray] = useState<number[]>([]);
@@ -48,6 +48,7 @@ export const Pagination: React.FC = () => {
 
   /* REFETCH THE PAGINATION DATA EVERYTIME THE VALUES CHANGES */
   useEffect(() => {
+    /* NEED CHANGES TO USE STORE INSTEAD OF AXIOS DATA */
     //refetch();
     setPageArrayInfo();
   }, [pagination]);
