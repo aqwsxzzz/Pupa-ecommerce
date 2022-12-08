@@ -8,7 +8,6 @@ const editProduct = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, price, categoryId, description } = req.body;
     const { id } = req.params;
-    console.log(req.body);
 
     const category = await CategoryModel.findById(categoryId);
 

@@ -7,8 +7,11 @@ import { RootState, useAppSelector } from "Store/store";
 import { CategoriesModal } from "Components/Modals/CategoriesModal";
 import { MdPostAdd } from "react-icons/md";
 import { NewProductModal } from "Components/Modals/NewProductModal";
+import { useNavigate } from "react-router-dom";
 
 export const Admin: React.FC = () => {
+  const navigate = useNavigate();
+
   const { products } = useAppSelector((state: RootState) => state.productsSlice);
   const [showProducts, setShowProducts] = useState(products);
 
@@ -28,7 +31,7 @@ export const Admin: React.FC = () => {
 
   return (
     <Flex direction={"column"} w={"100%"}>
-      <Flex w={"100%"} h={16} justify={"center"} direction={"row"} bgColor={"#f0d3e9"}>
+      <Flex w={"100%"} h={24} justify={"center"} direction={"row"} bgColor={"#f0d3e9"}>
         <Flex flex={"1"} justifyContent={"center"}>
           <Flex>
             <Text
@@ -57,20 +60,33 @@ export const Admin: React.FC = () => {
             <NewProductModal modal={modal} />
           </Flex>
         </Flex>
-        <Box
-          my={"auto"}
-          w={12}
-          h={12}
-          bgColor={"white"}
-          borderRadius={"50%"}
-          borderWidth={1}
-          borderColor={"black"}
-          style={{ overflow: "hidden" }}
-        >
-          <Flex mt={1.5} mb={1}>
-            <Image src={logo2} w={8} m={"auto"} />
-          </Flex>
-        </Box>
+        <Flex flexDir={"column"}>
+          <Box
+            m={"auto"}
+            w={12}
+            h={12}
+            bgColor={"white"}
+            borderRadius={"50%"}
+            borderWidth={1}
+            borderColor={"black"}
+            style={{ overflow: "hidden" }}
+          >
+            <Flex mt={1.5} mb={1}>
+              <Image src={logo2} w={8} m={"auto"} />
+            </Flex>
+          </Box>
+          <Text
+            m={"auto"}
+            color={"#B83280"}
+            fontFamily={"sans-serif"}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+            textAlign={"center"}
+            onClick={() => navigate("/cotizador")}
+          >
+            Cotizador
+          </Text>
+        </Flex>
         <Flex flex={"1"} justifyContent={"center"}>
           <Text
             m={"auto"}
