@@ -36,3 +36,33 @@ export interface DelModalProps {
   modal: ModalProps;
   id: string;
 }
+
+/* Quoter interfaces */
+export interface bagInfoSetState {
+  bagWidth: number;
+  bagLength: number;
+  bagQuantity: number;
+  cord: boolean;
+  workforcePercent: number;
+}
+
+export interface bagCostsSetState {
+  clothCost: number;
+  cordCost: number;
+  threadCost: number;
+  grifaCost: number;
+  workforceCost: number;
+}
+
+export interface quoterBackEndInfo {
+  cloth: [
+    {
+      type: string;
+      rollWidth: number; //in centimeters
+      price: number;
+    }
+  ];
+  threadPrice: number;
+  grifaPrice: number;
+  cordPrice: number;
+}
