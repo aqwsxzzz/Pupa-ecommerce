@@ -8,9 +8,9 @@ export interface Quoter {
       price: number;
     }
   ];
-  threadPrice: string;
-  grifaPrice: string;
-  cordPrice: string;
+  threadPrice: number;
+  grifaPrice: number;
+  cordPrice: number;
 }
 
 const QuoterInfoSchema = new Schema<Quoter>({
@@ -21,9 +21,9 @@ const QuoterInfoSchema = new Schema<Quoter>({
       price: Number,
     },
   ],
-  threadPrice: String,
-  grifaPrice: String,
-  cordPrice: String,
+  threadPrice: Number,
+  grifaPrice: Number,
+  cordPrice: Number,
 });
 
 export const QuoterModel = model<Quoter>("QuoterInfo", QuoterInfoSchema);
