@@ -8,7 +8,6 @@ export interface Quoter {
       price: number;
     }
   ];
-  threadPrice: number;
   grifaPrice: number;
   cordPrice: number;
 }
@@ -21,7 +20,6 @@ const QuoterInfoSchema = new Schema<Quoter>({
       price: Number,
     },
   ],
-  threadPrice: Number,
   grifaPrice: Number,
   cordPrice: Number,
 });

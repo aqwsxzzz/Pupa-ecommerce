@@ -4,14 +4,13 @@ import { Request, Response, NextFunction } from "express";
 /* EDIT QUOTER INFORMATION */
 const editQuoter = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { cloth, threadPrice, cordPrice, grifaPrice } = req.body;
+    const { cloth, cordPrice, grifaPrice } = req.body;
     const { id } = req.params;
 
     const quoter = await QuoterModel.findByIdAndUpdate(
       id,
       {
         cloth,
-        threadPrice,
         cordPrice,
         grifaPrice,
       },
