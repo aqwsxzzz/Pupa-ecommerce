@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose";
 export interface Quoter {
   cloth: [
     {
-      type: string;
+      clothType: string;
       rollWidth: number; //in centimeters
       price: number;
     }
@@ -15,7 +15,7 @@ export interface Quoter {
 const QuoterInfoSchema = new Schema<Quoter>({
   cloth: [
     {
-      type: String,
+      clothType: String,
       rollWidth: Number,
       price: Number,
     },

@@ -55,6 +55,7 @@ export interface bagCostsSetState {
 }
 
 export interface quoterBackEndInfo {
+  _id: string;
   cloth: [
     {
       type: string;
@@ -62,7 +63,6 @@ export interface quoterBackEndInfo {
       price: number;
     }
   ];
-  threadPrice: number;
   grifaPrice: number;
   cordPrice: number;
 }

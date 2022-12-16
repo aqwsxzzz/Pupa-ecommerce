@@ -82,7 +82,7 @@ export const Admin: React.FC = () => {
             fontWeight={"bold"}
             cursor={"pointer"}
             textAlign={"center"}
-            onClick={() => navigate("/cotizador")}
+            onClick={() => navigate("/quoter")}
           >
             Cotizador
           </Text>

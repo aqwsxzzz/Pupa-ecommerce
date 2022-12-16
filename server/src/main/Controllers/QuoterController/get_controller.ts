@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 const getQuoterInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const quoter = await QuoterModel.find({});
-    res.json(quoter);
+    return res.json(quoter);
   } catch (error) {
     return next(error);
   }
