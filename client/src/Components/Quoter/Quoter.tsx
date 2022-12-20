@@ -16,14 +16,13 @@ import { bagInfoSetState, bagCostsSetState } from "Utils/Interfaces";
 import { calcs } from "./QuoterCalcs";
 import { customHooks } from "Utils/CustomHooks";
 import logo2 from "../../Images/2.jpeg";
-import { APIS } from "Api/managersExport";
+import { DailyPrices } from "./dailyPrices";
 
 export const Quoter: React.FC = () => {
-  const { data: dataQuoter } = APIS.quoterManager.useGetQuoter();
+  /* Toggle cord to know if it will be part of the final price or not. */
+  const [isCord, setIsCord] = customHooks.useToggle();
 
   /* WILL HANDLE THE INFORMATION GIVEN FROM THE ADMIN IN THE FRONT FORM */
-  const [isCord, setIsCord] = customHooks.useToggle();
-  const [editCosts, setEditCosts] = customHooks.useToggle();
   const [bagInfo, setBaginfo] = useState<bagInfoSetState>({
     bagWidth: 0,
     bagLength: 0,
@@ -63,7 +62,7 @@ export const Quoter: React.FC = () => {
         <Flex flex={"1"}></Flex>
         <Box>
           <FormControl isRequired>
-            <VStack maxW={64}>
+            <VStack>
               <FormLabel textAlign={"center"}>Ancho</FormLabel>
               <Input></Input>
               <FormLabel>Largo</FormLabel>
@@ -84,29 +83,7 @@ export const Quoter: React.FC = () => {
           </FormControl>
         </Box>
         <Flex flex={"1"} justify={"center"}>
-          <Box w={48}>
-            <VStack borderWidth={1} borderColor={"#B83280"} pb={4} spacing={4}>
-              <Text fontWeight={"bold"}>Precios al dia</Text>
-              <Text fontWeight={"medium"}>Tela: $ {dataQuoter?.data[0].cloth[0].price}</Text>
-              <Text fontWeight={"medium"}>Cinta: $ {dataQuoter?.data[0].cordPrice}</Text>
-              <Text fontWeight={"medium"}>Grifa: $ {dataQuoter?.data[0].grifaPrice}</Text>
-              {editCosts ? (
-                <VStack>
-                  <Divider />
-                  <Text>Ingrese los nuevos precios.</Text>
-                  <Input></Input>
-                  <Input></Input>
-                  <Input></Input>
-                </VStack>
-              ) : (
-                <Box>
-                  <Button bgColor={"#B83280"} textColor={"white"} onClick={setEditCosts}>
-                    Editar
-                  </Button>
-                </Box>
-              )}
-            </VStack>
-          </Box>
+          <DailyPrices />
         </Flex>
       </Flex>
     </Flex>

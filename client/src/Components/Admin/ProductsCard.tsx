@@ -89,7 +89,7 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
       borderColor={"#B83280"}
       py={1}
       textAlign={"center"}
-      alignItems={"center"}
+      alignContent={"center"}
     >
       <Input
         name={"name"}
@@ -145,7 +145,7 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
       borderColor={"#B83280"}
       py={1}
       textAlign={"center"}
-      alignItems={"center"}
+      alignContent={"center"}
     >
       <Text mx={1} flex={"3"}>
         {editedProduct.name}
