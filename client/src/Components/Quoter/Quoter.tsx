@@ -1,17 +1,5 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  FormControl,
-  FormLabel,
-  Image,
-  Input,
-  Stack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import { Box, Button, Flex, FormControl, FormLabel, Image, Input, VStack } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { bagInfoSetState, bagCostsSetState } from "Utils/Interfaces";
 import { calcs } from "./QuoterCalcs";
 import { customHooks } from "Utils/CustomHooks";

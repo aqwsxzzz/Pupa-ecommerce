@@ -58,7 +58,7 @@ export interface quoterBackEndInfo {
   _id: string;
   cloth: [
     {
-      type: string;
+      clothType: string;
       rollWidth: number; //in centimeters
       price: number;
     }
