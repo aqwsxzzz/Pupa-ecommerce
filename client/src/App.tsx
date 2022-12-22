@@ -5,7 +5,7 @@ import { Home } from "./Components/Views/Home";
 import { Products } from "./Components/Views/Products";
 import { Admin } from "./Components/Views/Admin";
 import { PreFetch } from "Components/General/PreFetch";
-import { Quoter } from "Components/Quoter/Quoter";
+import { Quoter } from "Components/Views/Quoter";
 
 const queryClient = new QueryClient();
 
