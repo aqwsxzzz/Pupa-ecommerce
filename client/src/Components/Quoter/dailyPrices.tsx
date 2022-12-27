@@ -42,7 +42,7 @@ export const DailyPrices: React.FC = () => {
     }
   }, [dataQuoter]);
   /* HANDLER */
-  const inputsHandler = (e: any) => {
+  const inputsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setNewEdit({
       ...newEdit,
@@ -50,7 +50,7 @@ export const DailyPrices: React.FC = () => {
     });
   };
   /* Cloth price handler, needed bcuz cloth is an object type. */
-  const clothHandler = (e: any) => {
+  const clothHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     setNewEdit({
       ...newEdit,

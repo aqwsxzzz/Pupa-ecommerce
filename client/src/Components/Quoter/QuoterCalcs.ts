@@ -22,15 +22,15 @@ const grifaCostCalc = (bagInfo: bagInfoSetState, quoterPrices: AxiosResponse<any
 };
 
 const clothCostCalc = (bagInfo: bagInfoSetState, quoterPrices: AxiosResponse<any, any> | undefined) => {
-  /* Calculate how much bags fit using the bag width over the roll width -- +3 is the cloth excess for the sewing*/
-  const bagWxRollW = Math.floor(quoterPrices?.data[0].cloth[0].rollWidth / (bagInfo.bagWidth + 3));
-  /*Calculate how much bags fit using the bag length over the roll width -- x 2 is for the 2 sides u need for a bag and the +5 is for the cloth excess for the sewing*/
+  /* Calculate how much bags fit using the bag width over the roll width.
+   +2 is the cloth excess for the sewing*/
+  const bagWxRollW = Math.floor(quoterPrices?.data[0].cloth[0].rollWidth / (bagInfo.bagWidth + 2));
+  /*Calculate how much bags fit using the bag length over the roll width.
+   x 2 is for the 2 sides u need for a bag and the +5 is for the cloth excess for the sewing*/
   const bagLxRollW = Math.floor(quoterPrices?.data[0].cloth[0].rollWidth / (bagInfo.bagLength * 2 + 5));
   /* Checks if its better to cut bags over the width or the length */
   const clothCentimetersW = Math.ceil(((bagInfo.bagLength * 2 + 5) * bagInfo.bagQuantity) / bagWxRollW);
-  const clothCentimetersL = Math.ceil(((bagInfo.bagWidth + 3) * bagInfo.bagQuantity) / bagLxRollW);
-  console.log(bagInfo, bagWxRollW, bagLxRollW, clothCentimetersW, clothCentimetersL);
-
+  const clothCentimetersL = Math.ceil(((bagInfo.bagWidth + 2) * bagInfo.bagQuantity) / bagLxRollW);
   if (clothCentimetersW < clothCentimetersL) {
     return Math.ceil(clothCentimetersW * (quoterPrices?.data[0].cloth[0].price / 100));
   } else {
