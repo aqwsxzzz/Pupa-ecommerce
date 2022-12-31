@@ -1,13 +1,5 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import { customHooks } from "Utils/CustomHooks";
+import { Button, FormControl, FormLabel, Input, VStack, useDisclosure } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import { bagInfoSetState, bagCostsSetState } from "Utils/Interfaces";
 import { calcs } from "Components/Quoter/QuoterCalcs";
 import { APIS } from "Api/managersExport";
@@ -17,25 +9,18 @@ export const QuoterForm: React.FC = () => {
   const { data: dataQuoterInfo } = APIS.quoterManager.useGetQuoter();
 
   /* CHAKRA MODAL FUNCS */
-  const {
-    isOpen: isOpenResult,
-    onOpen: onOpenResult,
-    onClose: onCloseResult,
-  } = useDisclosure();
+  const { isOpen: isOpenResult, onOpen: onOpenResult, onClose: onCloseResult } = useDisclosure();
   const modal = {
     isOpen: isOpenResult,
     onClose: onCloseResult,
   };
-
-  /* Toggle cord to know if it will be part of the final price or not. */
-  const [isCord, toggleCord] = customHooks.useToggle();
 
   /* WILL HANDLE THE INFORMATION GIVEN FROM THE ADMIN IN THE FRONT FORM */
   const [bagInfo, setBaginfo] = useState<bagInfoSetState>({
     bagWidth: 0,
     bagLength: 0,
     bagQuantity: 0,
-    cord: isCord, //Bags have cord?
+    cord: false, //Bags have cord?
     workforcePercent: 0, //workforce percent to be applied to the material costs.
   });
 
@@ -58,15 +43,14 @@ export const QuoterForm: React.FC = () => {
   };
 
   const cordToggle = () => {
-    toggleCord();
     setBaginfo({
       ...bagInfo,
-      cord: isCord,
+      cord: !bagInfo.cord,
     });
   };
 
   const quote = () => {
-    if (isCord) {
+    if (bagInfo.cord) {
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
       const cordCost = calcs.cordCostCalc(bagInfo, dataQuoterInfo);
       const grifaCost = calcs.grifaCostCalc(bagInfo, dataQuoterInfo);
@@ -108,13 +92,13 @@ export const QuoterForm: React.FC = () => {
     <>
       <FormControl isRequired>
         <VStack>
-          <FormLabel textAlign={"center"}>Ancho</FormLabel>
+          <FormLabel textAlign={"center"}>Ancho (cms)</FormLabel>
           <Input name="bagWidth" onChange={formHandler} />
-          <FormLabel>Largo</FormLabel>
+          <FormLabel>Largo (cms)</FormLabel>
           <Input name="bagLength" onChange={formHandler} />
-          <FormLabel>Cantidad de Bolsas</FormLabel>
+          <FormLabel>Cantidad de Bolsas (unidades)</FormLabel>
           <Input name="bagQuantity" onChange={formHandler} />
-          {isCord ? (
+          {bagInfo.cord ? (
             <Button onClick={cordToggle} colorScheme={"green"}>
               Cordon
             </Button>

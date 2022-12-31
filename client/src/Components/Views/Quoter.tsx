@@ -23,12 +23,12 @@ export const Quoter: React.FC = () => {
           </Flex>
         </Box>
       </Flex>
-      <Flex>
-        <Flex flex={"1"}></Flex>
-        <Box>
+      <Flex justify={{ base: "center", md: "flex-start" }}>
+        <Flex flex={"1"} display={{ base: "none", md: "flex" }}></Flex>
+        <Flex>
           <QuoterForm />
-        </Box>
-        <Flex flex={"1"} justify={"center"}>
+        </Flex>
+        <Flex flex={"1"} justify={"center"} display={{ base: "none", md: "flex" }}>
           <DailyPrices />
         </Flex>
       </Flex>

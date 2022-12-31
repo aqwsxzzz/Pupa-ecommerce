@@ -12,11 +12,7 @@ import {
   Box,
   Flex,
 } from "@chakra-ui/react";
-import {
-  bagCostsSetState,
-  bagInfoSetState,
-  ModalProps,
-} from "Utils/Interfaces";
+import { bagCostsSetState, bagInfoSetState, ModalProps } from "Utils/Interfaces";
 
 interface ResultProps {
   bagCosts: bagCostsSetState;
@@ -24,11 +20,7 @@ interface ResultProps {
   modal: ModalProps;
 }
 
-export const QuoterResult: React.FC<ResultProps> = ({
-  bagInfo,
-  bagCosts,
-  modal,
-}) => {
+export const QuoterResult: React.FC<ResultProps> = ({ bagInfo, bagCosts, modal }) => {
   const total =
     bagCosts.clothCost +
     bagCosts.cordCost +
@@ -46,14 +38,10 @@ export const QuoterResult: React.FC<ResultProps> = ({
         <ModalBody>
           <Flex justifyContent={"space-evenly"}>
             <VStack spacing={1} textAlign={"center"}>
-              <Text>Ancho: {bagInfo.bagWidth}</Text>
-              <Text>Largo: {bagInfo.bagLength} </Text>
-              <Text>Cantidad: {bagInfo.bagQuantity} </Text>
-              {bagInfo.cord ? (
-                <Text>Cordon: Si </Text>
-              ) : (
-                <Text>Cordon: No</Text>
-              )}
+              <Text>Ancho: {bagInfo.bagWidth} cms.</Text>
+              <Text>Largo: {bagInfo.bagLength} cms.</Text>
+              <Text>Cantidad: {bagInfo.bagQuantity} unidades.</Text>
+              {bagInfo.cord ? <Text>Cordon: Si </Text> : <Text>Cordon: No</Text>}
               <Text>Mano de obra: {bagInfo.workforcePercent}% </Text>
             </VStack>
             <Box>
@@ -67,7 +55,7 @@ export const QuoterResult: React.FC<ResultProps> = ({
             </Box>
           </Flex>
           <Text mt={8} textAlign={"center"}>
-            Costo total: ${total}{" "}
+            Costo total: ${total}
           </Text>
         </ModalBody>
       </ModalContent>
