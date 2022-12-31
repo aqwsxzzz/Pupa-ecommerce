@@ -1,4 +1,11 @@
-import { Button, FormControl, FormLabel, Input, VStack, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { customHooks } from "Utils/CustomHooks";
 import { bagInfoSetState, bagCostsSetState } from "Utils/Interfaces";
@@ -10,7 +17,11 @@ export const QuoterForm: React.FC = () => {
   const { data: dataQuoterInfo } = APIS.quoterManager.useGetQuoter();
 
   /* CHAKRA MODAL FUNCS */
-  const { isOpen: isOpenResult, onOpen: onOpenResult, onClose: onCloseResult } = useDisclosure();
+  const {
+    isOpen: isOpenResult,
+    onOpen: onOpenResult,
+    onClose: onCloseResult,
+  } = useDisclosure();
   const modal = {
     isOpen: isOpenResult,
     onClose: onCloseResult,
@@ -56,27 +67,38 @@ export const QuoterForm: React.FC = () => {
 
   const quote = () => {
     if (isCord) {
-      const cordCost = calcs.cordCostCalc(bagInfo, dataQuoterInfo);
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
+      const cordCost = calcs.cordCostCalc(bagInfo, dataQuoterInfo);
       const grifaCost = calcs.grifaCostCalc(bagInfo, dataQuoterInfo);
       const threadCost = calcs.threadCostCalc(bagInfo);
+      const workforceCost = Math.ceil(
+        calcs.workforceCalc(bagInfo, clothCost, cordCost, grifaCost, threadCost)
+      );
       setBagCosts({
         ...bagCosts,
         cordCost,
         clothCost,
         grifaCost,
         threadCost,
+        workforceCost,
       });
+
       onOpenResult();
     } else {
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
+      const cordCost = 0;
       const grifaCost = calcs.grifaCostCalc(bagInfo, dataQuoterInfo);
       const threadCost = calcs.threadCostCalc(bagInfo);
+      const workforceCost = Math.ceil(
+        calcs.workforceCalc(bagInfo, clothCost, cordCost, grifaCost, threadCost)
+      );
+
       setBagCosts({
         ...bagCosts,
         clothCost,
         grifaCost,
         threadCost,
+        workforceCost,
       });
       onOpenResult();
     }
@@ -104,7 +126,7 @@ export const QuoterForm: React.FC = () => {
           <FormLabel textAlign={"center"}> Mano de Obra (%)</FormLabel>
           <Input name="workforcePercent" onChange={formHandler} />
           <Button onClick={quote}>Cotizar</Button>
-          <QuoterResult bagCosts={bagCosts} modal={modal} />
+          <QuoterResult bagInfo={bagInfo} bagCosts={bagCosts} modal={modal} />
         </VStack>
       </FormControl>
     </>
