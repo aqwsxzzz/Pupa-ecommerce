@@ -1,4 +1,15 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
 import { DailyPrices } from "Components/Quoter/DailyPrices";
@@ -25,10 +36,29 @@ export const Quoter: React.FC = () => {
       </Flex>
       <Flex justify={{ base: "center", md: "flex-start" }}>
         <Flex flex={"1"} display={{ base: "none", md: "flex" }}></Flex>
-        <Flex>
+        <Flex direction={"column"}>
+          <Flex display={{ base: "flex", md: "none" }} justify={"center"}>
+            <Popover>
+              <PopoverTrigger>
+                <Button>Precios Diarios</Button>
+              </PopoverTrigger>
+              <PopoverContent w={"232px"}>
+                <PopoverArrow />
+                <PopoverBody>
+                  <Flex justify={"center"}>
+                    <DailyPrices />
+                  </Flex>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+          </Flex>
           <QuoterForm />
         </Flex>
-        <Flex flex={"1"} justify={"center"} display={{ base: "none", md: "flex" }}>
+        <Flex
+          flex={"1"}
+          justify={"center"}
+          display={{ base: "none", md: "flex" }}
+        >
           <DailyPrices />
         </Flex>
       </Flex>
