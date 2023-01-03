@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Input,
+  Select,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
@@ -23,7 +31,9 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
     setEditedProduct(prod);
   }, [prod]);
 
-  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
+  const { categories } = useAppSelector(
+    (state: RootState) => state.categoriesSlice
+  );
   const [editStatus, setEditStatus] = useState(false);
 
   const [editedProduct, setEditedProduct] = useState({
@@ -130,10 +140,19 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editProduct}
+        >
           <TiTick />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
+        <Button
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={cancelEdit}
+        >
           <TiCancel />
         </Button>
       </Box>
@@ -156,10 +175,19 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
       </Text>
       <Text flex={"3"}>{editedProduct.description}</Text>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editSwitch}
+        >
           <RiEdit2Fill />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
+        <Button
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={onOpen}
+        >
           <RiDeleteBin7Fill />
         </Button>
       </Box>
