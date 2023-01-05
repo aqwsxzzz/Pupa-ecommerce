@@ -82,7 +82,6 @@ export const DailyPrices: React.FC = () => {
     setEditCosts();
   };
 
-  //TODO Add useMediaQuery from chakra to do the conditional to show like it is right now while widht > MD and a button when smaller.
   return (
     <Box>
       {editCosts ? (
