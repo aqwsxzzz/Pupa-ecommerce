@@ -37,10 +37,6 @@ const useEditProduct = () => {
   return useMutation(editProduct);
 };
 
-export const useEditP = () => {
-  return useMutation(editProduct);
-};
-
 /* "post" exports */
 const useNewProduct = () => {
   const dispatch = useAppDispatch();

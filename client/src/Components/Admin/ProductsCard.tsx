@@ -3,7 +3,7 @@ import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-u
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
-import { useEditP } from "../../Api/Products/productExports";
+import { productManager } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 import { RootState, useAppSelector } from "../../Store/store";
 
@@ -63,7 +63,7 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
 
   /* SEND THE NEW PRODUCT INFO */
 
-  const { mutateAsync: mutateAsyncEdit } = useEditP();
+  const { mutateAsync: mutateAsyncEdit } = productManager.useEditProduct();
   const editProduct = async () => {
     await mutateAsyncEdit(editedProduct);
     editSwitch();
