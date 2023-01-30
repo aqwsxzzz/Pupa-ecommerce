@@ -1,4 +1,11 @@
-import { Box, Button, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import logo2 from "../../Images/2.jpeg";
 import { ModalProps, ProductsProps } from "../../Utils/Interfaces";
@@ -8,11 +15,14 @@ import { CategoriesModal } from "Components/Modals/CategoriesModal";
 import { MdPostAdd } from "react-icons/md";
 import { NewProductModal } from "Components/Modals/NewProductModal";
 import { useNavigate } from "react-router-dom";
+import { ProductsAdminCardGrid } from "Components/Admin/ProductCardGrid";
 
 export const Admin: React.FC = () => {
   const navigate = useNavigate();
 
-  const { products } = useAppSelector((state: RootState) => state.productsSlice);
+  const { products } = useAppSelector(
+    (state: RootState) => state.productsSlice
+  );
   const [showProducts, setShowProducts] = useState(products);
 
   useEffect(() => {
@@ -20,10 +30,18 @@ export const Admin: React.FC = () => {
   }, [products]);
 
   /* CATEGORY MODAL FUNCS */
-  const { isOpen: isOpenCategories, onOpen: onOpenCategories, onClose: onCloseCategories } = useDisclosure();
+  const {
+    isOpen: isOpenCategories,
+    onOpen: onOpenCategories,
+    onClose: onCloseCategories,
+  } = useDisclosure();
 
   /* NEW PRODUCT MODAL FUNCS */
-  const { isOpen: isOpenNewProduct, onOpen: onOpenNewProduct, onClose: onCloseNewProduct } = useDisclosure();
+  const {
+    isOpen: isOpenNewProduct,
+    onOpen: onOpenNewProduct,
+    onClose: onCloseNewProduct,
+  } = useDisclosure();
   const modal: ModalProps = {
     isOpen: isOpenNewProduct,
     onClose: onCloseNewProduct,
@@ -31,7 +49,13 @@ export const Admin: React.FC = () => {
 
   return (
     <Flex direction={"column"} w={"100%"}>
-      <Flex w={"100%"} h={24} justify={"center"} direction={"row"} bgColor={"#f0d3e9"}>
+      <Flex
+        w={"100%"}
+        h={24}
+        justify={"center"}
+        direction={"row"}
+        bgColor={"#f0d3e9"}
+      >
         <Flex flex={"1"} justifyContent={"center"}>
           <Flex>
             <Text
@@ -98,7 +122,10 @@ export const Admin: React.FC = () => {
           >
             Categorias
           </Text>
-          <CategoriesModal isOpen={isOpenCategories} onClose={onCloseCategories} />
+          <CategoriesModal
+            isOpen={isOpenCategories}
+            onClose={onCloseCategories}
+          />
         </Flex>
       </Flex>
       <Flex w={"100%"} justifyContent={"center"}>
@@ -112,7 +139,9 @@ export const Admin: React.FC = () => {
           borderColor={"#B83280"}
         >
           {products
-            ? showProducts.map((prod: ProductsProps) => <ProductsAdminCard prod={prod} key={prod._id} />)
+            ? showProducts.map((prod: ProductsProps) => (
+                <ProductsAdminCardGrid prod={prod} key={prod._id} />
+              ))
             : null}
         </Flex>
       </Flex>
