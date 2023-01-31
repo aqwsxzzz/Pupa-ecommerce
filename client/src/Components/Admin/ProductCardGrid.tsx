@@ -1,19 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Input,
-  Select,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
-import { useEditP } from "../../Api/Products/productExports";
+import { productManager } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 import { RootState, useAppSelector } from "../../Store/store";
 
@@ -33,9 +23,7 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
     setEditedProduct(prod);
   }, [prod]);
 
-  const { categories } = useAppSelector(
-    (state: RootState) => state.categoriesSlice
-  );
+  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
   const [editStatus, setEditStatus] = useState(false);
 
   const [editedProduct, setEditedProduct] = useState({
@@ -75,7 +63,7 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
 
   /* SEND THE NEW PRODUCT INFO */
 
-  const { mutateAsync: mutateAsyncEdit } = useEditP();
+  const { mutateAsync: mutateAsyncEdit } = productManager.useEditProduct();
   const editProduct = async () => {
     await mutateAsyncEdit(editedProduct);
     editSwitch();
@@ -142,19 +130,10 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button
-          mr={1}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editProduct}
-        >
+        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
           <TiTick />
         </Button>
-        <Button
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={cancelEdit}
-        >
+        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
           <TiCancel />
         </Button>
       </Box>
@@ -166,7 +145,7 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
       borderColor={"#B83280"}
       py={1}
       textAlign={"center"}
-      templateColumns={"(3fr, 2fr, 2fr, 3fr, 2fr)"}
+      templateColumns={"3fr 2fr 2fr 3fr 2fr"}
     >
       <GridItem mx={1}>
         <Text>{editedProduct.name}</Text>
@@ -178,26 +157,13 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
         <Text mx={1}>{editedProduct.category?.name}</Text>
       </GridItem>
       <GridItem>
-        <Text display={{ base: "none", md: "flex" }}>
-          {editedProduct.description}
-        </Text>
+        <Text display={{ base: "none", md: "flex" }}>{editedProduct.description}</Text>
       </GridItem>
       <GridItem>
-        <Button
-          mr={1}
-          size={"xs"}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editSwitch}
-        >
+        <Button mr={1} size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
           <RiEdit2Fill />
         </Button>
-        <Button
-          size={"xs"}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={onOpen}
-        >
+        <Button size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
           <RiDeleteBin7Fill />
         </Button>
       </GridItem>
