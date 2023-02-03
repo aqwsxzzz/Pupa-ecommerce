@@ -30,7 +30,9 @@ export const NewProductModal: React.FC<newProd> = ({ modal }) => {
   });
 
   /* RETRIEVE THE CATEGORIES FROM REDUX STORE */
-  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
+  const { categories } = useAppSelector(
+    (state: RootState) => state.categoriesSlice
+  );
 
   /* RETRIVE THE INFO NEEDED FROM THE PICKED CATEGORY AND SAVE IT TO THE PRODUCT STATE */
   const categoryHandler = (e: any) => {
@@ -63,16 +65,22 @@ export const NewProductModal: React.FC<newProd> = ({ modal }) => {
   };
 
   /* FUNCTIONS TO CREATE NEW PRODUCT */
-  const { mutateAsync: mutateAsyncNewProduct } = APIS.productManager.useNewProduct();
+  const { mutateAsync: mutateAsyncNewProduct } =
+    APIS.productManager.useNewProduct();
   const createNewProduct = async () => {
     await mutateAsyncNewProduct(productInfo);
     modal.onClose();
   };
 
   return (
-    <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered autoFocus={false}>
+    <Modal
+      isOpen={modal.isOpen}
+      onClose={modal.onClose}
+      isCentered
+      autoFocus={false}
+    >
       <ModalOverlay />
-      <ModalContent bgColor={"#f0d3e9"} maxW={"400px"}>
+      <ModalContent maxW={"400px"}>
         <ModalHeader>
           <Text textAlign={"center"} textColor={"#B83280"}>
             NUEVO PRODUCTO

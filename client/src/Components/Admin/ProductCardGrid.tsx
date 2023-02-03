@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Flex, Grid, GridItem, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Input,
+  Select,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
@@ -23,7 +33,9 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
     setEditedProduct(prod);
   }, [prod]);
 
-  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
+  const { categories } = useAppSelector(
+    (state: RootState) => state.categoriesSlice
+  );
   const [editStatus, setEditStatus] = useState(false);
 
   const [editedProduct, setEditedProduct] = useState({
@@ -130,10 +142,19 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editProduct}
+        >
           <TiTick />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
+        <Button
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={cancelEdit}
+        >
           <TiCancel />
         </Button>
       </Box>
@@ -145,25 +166,40 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
       borderColor={"#B83280"}
       py={1}
       textAlign={"center"}
-      templateColumns={"3fr 2fr 2fr 3fr 2fr"}
+      templateAreas={`"Name Name Name Name"
+                      "Price Category Description Buttons"`}
+      templateColumns={"2.5fr 2.5fr 4.5fr 2.5fr"}
     >
-      <GridItem mx={1}>
-        <Text>{editedProduct.name}</Text>
+      <GridItem mx={1} area={"Name"}>
+        <Text color={"#B83280"}>{editedProduct.name}</Text>
       </GridItem>
-      <GridItem>
-        <Text>{editedProduct.price}</Text>
+      <GridItem area={"Price"}>
+        <Text>${editedProduct.price}</Text>
       </GridItem>
-      <GridItem>
+      <GridItem area={"Category"}>
         <Text mx={1}>{editedProduct.category?.name}</Text>
       </GridItem>
-      <GridItem>
-        <Text display={{ base: "none", md: "flex" }}>{editedProduct.description}</Text>
+      <GridItem area={"Description"}>
+        <Text display={{ base: "none", md: "flex" }} textAlign={"center"}>
+          {editedProduct.description}
+        </Text>
       </GridItem>
-      <GridItem>
-        <Button mr={1} size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
+      <GridItem area={"Buttons"}>
+        <Button
+          mr={1}
+          size={"xs"}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editSwitch}
+        >
           <RiEdit2Fill />
         </Button>
-        <Button size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
+        <Button
+          size={"xs"}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={onOpen}
+        >
           <RiDeleteBin7Fill />
         </Button>
       </GridItem>
