@@ -9,10 +9,12 @@ import {
   Select,
   Text,
   useDisclosure,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { productManager } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 import { RootState, useAppSelector } from "../../Store/store";
@@ -29,13 +31,14 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
     onClose,
   };
 
+  /* CHAKRA MEDIA QUERY STATE */
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px");
+
   useEffect(() => {
     setEditedProduct(prod);
   }, [prod]);
 
-  const { categories } = useAppSelector(
-    (state: RootState) => state.categoriesSlice
-  );
+  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
   const [editStatus, setEditStatus] = useState(false);
 
   const [editedProduct, setEditedProduct] = useState({
@@ -142,19 +145,10 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button
-          mr={1}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editProduct}
-        >
+        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
           <TiTick />
         </Button>
-        <Button
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={cancelEdit}
-        >
+        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
           <TiCancel />
         </Button>
       </Box>
@@ -179,27 +173,20 @@ export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
       <GridItem area={"Category"}>
         <Text mx={1}>{editedProduct.category?.name}</Text>
       </GridItem>
-      <GridItem area={"Description"}>
-        <Text display={{ base: "none", md: "flex" }} textAlign={"center"}>
-          {editedProduct.description}
-        </Text>
+      <GridItem area={"Description"} alignSelf={"center"}>
+        {isLargerThan768 ? (
+          <Text textAlign={"center"}>{editedProduct.description}</Text>
+        ) : (
+          <Flex justify={"center"}>
+            <AiOutlineInfoCircle color="#B83280" />
+          </Flex>
+        )}
       </GridItem>
       <GridItem area={"Buttons"}>
-        <Button
-          mr={1}
-          size={"xs"}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={editSwitch}
-        >
+        <Button mr={1} size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
           <RiEdit2Fill />
         </Button>
-        <Button
-          size={"xs"}
-          bgColor={"#f0d3e9"}
-          _hover={{ bgColor: "#B83280" }}
-          onClick={onOpen}
-        >
+        <Button size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
           <RiDeleteBin7Fill />
         </Button>
       </GridItem>
