@@ -9,16 +9,20 @@ import {
   PopoverCloseButton,
   PopoverContent,
   PopoverTrigger,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
 import { DailyPrices } from "Components/Quoter/DailyPrices";
 import { QuoterForm } from "Components/Quoter/QuoterForm";
+import { useNavigate } from "react-router-dom";
 
 export const Quoter: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <Flex flexDir={"column"}>
-      <Flex bgColor={"#f0d3e9"} h={14} mb={8}>
+      <Flex bgColor={"#f0d3e9"} h={24} mb={8} flexDir={"column"}>
         <Box
           m={"auto"}
           w={12}
@@ -33,6 +37,17 @@ export const Quoter: React.FC = () => {
             <Image src={logo2} w={8} m={"auto"} />
           </Flex>
         </Box>
+        <Text
+          m={"auto"}
+          color={"#B83280"}
+          fontFamily={"sans-serif"}
+          fontWeight={"bold"}
+          cursor={"pointer"}
+          textAlign={"center"}
+          onClick={() => navigate("/admin")}
+        >
+          Productos
+        </Text>
       </Flex>
       <Flex justify={{ base: "center", md: "flex-start" }}>
         <Flex flex={"1"} display={{ base: "none", md: "flex" }}></Flex>

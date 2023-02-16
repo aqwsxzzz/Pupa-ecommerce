@@ -24,7 +24,10 @@ export const CategoryAdminCard: React.FC<Card> = ({ cat }) => {
   };
 
   /* CATEGORY DATA TO MODIFY AND SEND TO EDIT */
-  const [categoryEditData, setCategoryEditData] = useState({ _id: cat._id, name: cat.name });
+  const [categoryEditData, setCategoryEditData] = useState({
+    _id: cat._id,
+    name: cat.name,
+  });
 
   const categoryNameHandler = (e: any) => {
     const value = e.target.value;
@@ -41,7 +44,8 @@ export const CategoryAdminCard: React.FC<Card> = ({ cat }) => {
   };
 
   /* WILL SEND THE EDITED DATA */
-  const { mutateAsync: mutateAsyncEdit } = APIS.categoryManager.useEditCategory();
+  const { mutateAsync: mutateAsyncEdit } =
+    APIS.categoryManager.useEditCategory();
   const editCategory = async () => {
     await mutateAsyncEdit(categoryEditData);
     dispatchEditCategory(categoryEditData, dispatch);
@@ -78,10 +82,10 @@ export const CategoryAdminCard: React.FC<Card> = ({ cat }) => {
         </Text>
       </Flex>
       <Flex justifyContent={"flex-end"} flex={"1"}>
-        <Button mr={1} onClick={editCategorySwitch}>
+        <Button mr={1} onClick={editCategorySwitch} bgColor={"#f0d3e9"}>
           <RiEdit2Fill color="#B83280" />
         </Button>
-        <Button onClick={onOpen}>
+        <Button onClick={onOpen} bgColor={"#f0d3e9"}>
           <RiDeleteBin7Fill color="#B83280" />
         </Button>
         <DelCategoryModal modal={modal} id={cat._id} />

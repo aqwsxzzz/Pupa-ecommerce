@@ -11,6 +11,7 @@ export interface NewProductProps {
   image: string;
   price: string;
   categoryId: string;
+  description: string;
 }
 
 export interface CategoriesProps {

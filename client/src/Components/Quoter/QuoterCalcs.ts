@@ -69,6 +69,7 @@ const workforceCalc = (
   grifaCost: number,
   threadCost: number
 ) => {
+  if (bagInfo.workforcePercent === 0) return 0;
   return (
     ((clothCost + cordCost + grifaCost + threadCost) *
       bagInfo.workforcePercent) /

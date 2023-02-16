@@ -27,6 +27,7 @@ export const NewProductModal: React.FC<newProd> = ({ modal }) => {
     image: "",
     price: "",
     categoryId: "",
+    description: "",
   });
 
   /* RETRIEVE THE CATEGORIES FROM REDUX STORE */
@@ -137,6 +138,7 @@ export const NewProductModal: React.FC<newProd> = ({ modal }) => {
               placeholder={"Descripcion"}
               borderColor={"#B83280"}
               mt={2}
+              onChange={inputsHandler}
               sx={{
                 ":hover": {
                   borderColor: "#B83280",
