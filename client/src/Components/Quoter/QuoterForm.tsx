@@ -77,7 +77,6 @@ export const QuoterForm: React.FC = () => {
         threadCost,
         workforceCost,
       });
-
       onOpenResult();
     } else {
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
@@ -90,6 +89,7 @@ export const QuoterForm: React.FC = () => {
 
       setBagCosts({
         ...bagCosts,
+        cordCost,
         clothCost,
         grifaCost,
         threadCost,
@@ -98,7 +98,6 @@ export const QuoterForm: React.FC = () => {
       onOpenResult();
     }
   };
-
   return (
     <>
       <FormControl isRequired>

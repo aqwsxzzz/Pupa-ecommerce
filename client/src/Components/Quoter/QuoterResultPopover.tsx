@@ -15,7 +15,6 @@ import {
   bagInfoSetState,
   ModalProps,
 } from "Utils/Interfaces";
-import { log } from "console";
 
 interface ResultProps {
   bagCosts: bagCostsSetState;
@@ -23,11 +22,15 @@ interface ResultProps {
   modal: ModalProps;
 }
 
-interface bagInfoTypes{
-  id: number;
+interface bagInfoTypes {
   name: string;
   value: string;
   type: string;
+}
+
+interface bagCostsTypes {
+  name: string;
+  value: number;
 }
 
 export const QuoterResult: React.FC<ResultProps> = ({
@@ -43,56 +46,82 @@ export const QuoterResult: React.FC<ResultProps> = ({
     bagCosts.workforceCost;
 
   const [bagInfoResults, setBagInfoResults] = useState<bagInfoTypes[]>([
-    { id: 1, name: "Ancho:", value: bagInfo.bagWidth.toString(), type: "cms." },
+    { name: "Ancho:", value: "", type: "cms." },
     {
-      id: 2,
       name: "Largo:",
       value: "",
       type: "cms.",
     },
     {
-      id: 3,
       name: "Cantidad:",
-      value: bagInfo.bagQuantity.toString(),
+      value: "",
       type: "unidades.",
     },
-    { id: 4, name: "Cordon:", value: bagInfo.cord ? "Si" : "No", type: "" },
+    { name: "Cordon:", value: bagInfo.cord ? "Si" : "No", type: "" },
     {
-      id: 5,
       name: "Mano de obra:",
-      value: bagInfo.workforcePercent.toString(),
+      value: "",
       type: "%",
     },
   ]);
 
-  const [bagCostsResults, setBagCostsResults] = useState([
-    { id: 1, name: "Costo de tela:", value: bagCosts.clothCost },
-    { id: 2, name: "Costo de cinta:", value: bagCosts.cordCost },
-    { id: 3, name: "Costo de grifa:", value: bagCosts.grifaCost },
-    { id: 4, name: "Costo de hilo:", value: bagCosts.threadCost },
-    { id: 5, name: "Costo mano de obra:", value: bagCosts.workforceCost },
+  const [bagCostsResults, setBagCostsResults] = useState<bagCostsTypes[]>([
+    {
+      name: "Costo de tela:",
+      value: 0,
+    },
+    { name: "Costo de cinta:", value: 0 },
+    { name: "Costo de grifa:", value: 0 },
+    { name: "Costo de hilo:", value: 0 },
+    { name: "Costo mano de obra:", value: 0 },
   ]);
 
+  const [, setForceRerender] = useState({});
+
   useEffect(() => {
-    setBagInfoResults([...bagInfoResults].map((info: bagInfoTypes) => {
-      if(info.id === bagInfoResults[0].id) {
-        return {...info,
-        value: bagInfo?.bagWidth.toString()}
-      } else if (info.id === bagInfoResults[1].id) {
-        return {...info,
-        value: bagInfo?.bagLength.toString()}
-    } else if (info.id === bagInfoResults[2].id) {
-      return {...info,
-      value: bagInfo?.bagQuantity.toString()}
-    } else if (info.id === bagInfoResults[3].id) {
-      return {...info,
-      value: bagInfo?.cord.toString()}
-      } else if (info.id === bagInfoResults[4].id) {
-        return {...info,
-        value: bagInfo?.workforcePercent.toString()}
-        }
-    ))
+    let arr = bagInfoResults;
+
+    arr.map((info: bagInfoTypes) => {
+      if (info.name === "Ancho:") {
+        arr[0] = { ...info, value: bagInfo.bagWidth.toString() };
+      } else if (info.name === "Largo:") {
+        arr[1] = { ...info, value: bagInfo.bagLength.toString() };
+      } else if (info.name === "Cantidad:") {
+        arr[2] = { ...info, value: bagInfo.bagQuantity.toString() };
+      } else if (info.name === "Cordon:") {
+        arr[3] = { ...info, value: bagInfo.cord ? "Si" : "No" };
+      } else arr[4] = { ...info, value: bagInfo.workforcePercent.toString() };
+    });
+    setBagInfoResults(arr);
   }, [bagInfo]);
+
+  useEffect(() => {
+    let arr = bagCostsResults;
+    // arr[0] = { ...arr[0], value: bagCosts.clothCost };
+    // arr[1] = { ...arr[1], value: bagCosts.cordCost };
+    // arr[2] = { ...arr[2], value: bagCosts.grifaCost };
+    // arr[3] = { ...arr[3], value: bagCosts.threadCost };
+    // arr[4] = { ...arr[4], value: bagCosts.workforceCost };
+
+    arr.map((info: bagCostsTypes) => {
+      if (info.name === "Costo de tela:") {
+        arr[0] = { ...arr[0], value: bagCosts.clothCost };
+      } else if (info.name === "Costo de cinta:") {
+        arr[1] = { ...arr[1], value: bagCosts.cordCost };
+      } else if (info.name === "Costo de grifa:") {
+        arr[2] = { ...arr[2], value: bagCosts.grifaCost };
+      } else if (info.name === "Costo de hilo:") {
+        arr[3] = { ...arr[3], value: bagCosts.threadCost };
+      } else arr[4] = { ...arr[4], value: bagCosts.workforceCost };
+    });
+
+    setBagCostsResults(arr);
+    forceUpdate();
+  }, [bagCosts]);
+
+  const forceUpdate = () => {
+    setForceRerender({});
+  };
 
   return (
     <Modal isOpen={modal.isOpen} onClose={modal.onClose} isCentered>
@@ -106,29 +135,25 @@ export const QuoterResult: React.FC<ResultProps> = ({
         <ModalBody>
           <Flex justifyContent={"space-evenly"}>
             <VStack spacing={1} align={"start"}>
-              {bagInfoResults.map(
-                (info: bagInfoTypes) => (
-                  <Text color={"#B7CD6A"} ml={0} key={info.id}>
-                    <Text as={"span"} textColor={"#B83280"}>
-                      {info.name}&nbsp;
-                    </Text>
-                    {info.value} {info.type}
+              {bagInfoResults.map((info: bagInfoTypes) => (
+                <Text color={"#B7CD6A"} ml={0} key={info.name}>
+                  <Text as={"span"} textColor={"#B83280"}>
+                    {info.name}&nbsp;
                   </Text>
-                )
-              )}
+                  {info.value} {info.type}
+                </Text>
+              ))}
             </VStack>
             <Box>
               <VStack spacing={1} align={"start"}>
-                {bagCostsResults.map(
-                  (cost: { id: number; name: string; value: number }) => (
-                    <Text color={"#B7CD6A"} key={cost.id}>
-                      <Text as={"span"} textColor={"#B83280"}>
-                        {cost.name}&nbsp;
-                      </Text>
-                      ${cost.value}
+                {bagCostsResults.map((cost: bagCostsTypes) => (
+                  <Text color={"#B7CD6A"} key={cost.name}>
+                    <Text as={"span"} textColor={"#B83280"}>
+                      {cost.name}&nbsp;
                     </Text>
-                  )
-                )}
+                    ${cost.value}
+                  </Text>
+                ))}
               </VStack>
             </Box>
           </Flex>

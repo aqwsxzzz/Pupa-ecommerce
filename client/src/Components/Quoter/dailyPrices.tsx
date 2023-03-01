@@ -54,7 +54,13 @@ export const DailyPrices: React.FC = () => {
     const value = Number(e.target.value);
     setNewEdit({
       ...newEdit,
-      cloth: [{ price: value, clothType: newEdit.cloth[0].clothType, rollWidth: newEdit.cloth[0].rollWidth }],
+      cloth: [
+        {
+          price: value,
+          clothType: newEdit.cloth[0].clothType,
+          rollWidth: newEdit.cloth[0].rollWidth,
+        },
+      ],
     });
   };
 
@@ -76,7 +82,8 @@ export const DailyPrices: React.FC = () => {
   };
 
   /* Send change to the DB */
-  const { mutateAsync: mutateAsyncEditQuoterPrices } = APIS.quoterManager.usePutQuoter();
+  const { mutateAsync: mutateAsyncEditQuoterPrices } =
+    APIS.quoterManager.usePutQuoter();
   const editQuoterPrices = async () => {
     await mutateAsyncEditQuoterPrices(newEdit);
     setEditCosts();
@@ -93,32 +100,47 @@ export const DailyPrices: React.FC = () => {
           display={"table"}
           w={"200px"}
         >
-          <Text fontWeight={"bold"} textAlign={"center"}>
+          <Text fontWeight={"bold"} textAlign={"center"} textColor={"#B83280"}>
             Precios al dia
           </Text>
-          <Flex w={"100%"}>
+          <Flex w={"100%"} textColor={"#B7CD6A"}>
             <Text fontWeight={"medium"} textAlign={"end"} flex={"1"}>
               Tela: $
             </Text>
-            <Input size={"xs"} width={10} onChange={clothHandler} name={"cloth.price"} />
+            <Input
+              size={"xs"}
+              width={10}
+              onChange={clothHandler}
+              name={"cloth.price"}
+            />
             <Text flex={"1"} fontWeight={"medium"}>
               x metro.
             </Text>
           </Flex>
-          <Flex w={"100%"}>
+          <Flex w={"100%"} textColor={"#B83280"}>
             <Text fontWeight={"medium"} textAlign={"end"} flex={"1"}>
               Cinta: $
             </Text>
-            <Input size={"xs"} width={10} onChange={inputsHandler} name={"cordPrice"} />
+            <Input
+              size={"xs"}
+              width={10}
+              onChange={inputsHandler}
+              name={"cordPrice"}
+            />
             <Text flex={"1"} fontWeight={"medium"}>
               x metro.
             </Text>
           </Flex>
-          <Flex w={"100%"}>
+          <Flex w={"100%"} textColor={"#B7CD6A"}>
             <Text fontWeight={"medium"} textAlign={"end"} flex={"1"}>
               Grifa: $
             </Text>
-            <Input size={"xs"} width={10} onChange={inputsHandler} name={"grifaPrice"} />
+            <Input
+              size={"xs"}
+              width={10}
+              onChange={inputsHandler}
+              name={"grifaPrice"}
+            />
             <Text flex={"1"} fontWeight={"medium"}>
               x bolsa.
             </Text>
@@ -132,10 +154,18 @@ export const DailyPrices: React.FC = () => {
           spacing={4}
           w={"200px"}
         >
-          <Text fontWeight={"bold"}>Precios al dia</Text>
-          <Text fontWeight={"medium"}>Tela: $ {newEdit.cloth[0].price} x metro.</Text>
-          <Text fontWeight={"medium"}>Cinta: $ {newEdit.cordPrice} x metro.</Text>
-          <Text fontWeight={"medium"}>Grifa: $ {newEdit.grifaPrice} x bolsa.</Text>
+          <Text fontWeight={"bold"} textColor={"#B83280"}>
+            Precios al dia
+          </Text>
+          <Text fontWeight={"medium"} textColor={"#B7CD6A"}>
+            Tela: $ {newEdit.cloth[0].price} x metro.
+          </Text>
+          <Text fontWeight={"medium"} textColor={"#B83280"}>
+            Cinta: $ {newEdit.cordPrice} x metro.
+          </Text>
+          <Text fontWeight={"medium"} textColor={"#B7CD6A"}>
+            Grifa: $ {newEdit.grifaPrice} x bolsa.
+          </Text>
         </VStack>
       )}
       <Flex justifyContent={"center"} mt={1} w={"200px"}>
@@ -149,7 +179,11 @@ export const DailyPrices: React.FC = () => {
             </Button>
           </Flex>
         ) : (
-          <Button bgColor={"#B83280"} textColor={"white"} onClick={setEditCosts}>
+          <Button
+            bgColor={"#B83280"}
+            textColor={"white"}
+            onClick={setEditCosts}
+          >
             Editar
           </Button>
         )}
