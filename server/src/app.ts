@@ -5,15 +5,15 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { router as indexRouter } from "./main/Routes/routes";
 import { Request, Response, NextFunction, Application } from "express";
-//import passport from "passport";
+
+import passport from "passport";
 import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-// require("dotenv").config();
-//require("./main/Passport/passport-local");
-//require("./main/Passport/jwt");
+require("./main/Routes/Auth/auth");
+require("./main/Routes/Auth/jwt");
 
 const app: Application = express();
 app.use(cors());
@@ -45,8 +45,8 @@ app.use(
   })
 );
 
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", indexRouter);
 
@@ -68,11 +68,11 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
 
 // import { send } from "./main/controllers/Schedule/SendEmail";
 // send();
-/* const port: any | number = process.env.PORT || 5000;
+const port: any | number = process.env.PORT || 5000;
 app.listen(port, () => {
-  job.start();
+  //job.start();
   // mailToUser();
   console.log(`server started on ${port}`);
 });
- */
+
 export { app };
