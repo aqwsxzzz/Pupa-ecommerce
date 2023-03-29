@@ -41,4 +41,12 @@ import { router as postUser } from "./User/post_user";
 
 router.use(postUser);
 
+import { router as postQuoter } from "./QuoterRoutes/post_quoter";
+import { router as getQuoter } from "./QuoterRoutes/get_quoter";
+import { router as putQuoter } from "./QuoterRoutes/put_quoter";
+
+router.use(postQuoter);
+router.use(getQuoter);
+router.use(putQuoter);
+
 export { router };

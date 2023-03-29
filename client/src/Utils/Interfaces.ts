@@ -11,6 +11,7 @@ export interface NewProductProps {
   image: string;
   price: string;
   categoryId: string;
+  description: string;
 }
 
 export interface CategoriesProps {
@@ -35,4 +36,34 @@ export interface ModalProps {
 export interface DelModalProps {
   modal: ModalProps;
   id: string;
+}
+
+/* Quoter interfaces */
+export interface bagInfoSetState {
+  bagWidth: number;
+  bagLength: number;
+  bagQuantity: number;
+  cord: boolean;
+  workforcePercent: number;
+}
+
+export interface bagCostsSetState {
+  clothCost: number;
+  cordCost: number;
+  threadCost: number;
+  grifaCost: number;
+  workforceCost: number;
+}
+
+export interface quoterBackEndInfo {
+  _id: string;
+  cloth: [
+    {
+      clothType: string;
+      rollWidth: number; //in centimeters
+      price: number;
+    }
+  ];
+  grifaPrice: number;
+  cordPrice: number;
 }

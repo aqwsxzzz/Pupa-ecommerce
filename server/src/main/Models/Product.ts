@@ -12,6 +12,7 @@ const ProductSchema = new Schema<Product>({
   name: String,
   image: String,
   price: String,
+  description: String,
   category: { type: Schema.Types.ObjectId, ref: "Category" },
 });
 

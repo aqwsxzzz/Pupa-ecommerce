@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Flex, Input, Select, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Input,
+  Select,
+  Text,
+  useDisclosure,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { CategoriesProps, ProductsProps } from "../../Utils/Interfaces";
 import { RiEdit2Fill, RiDeleteBin7Fill } from "react-icons/ri";
 import { TiTick, TiCancel } from "react-icons/ti";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { productManager } from "../../Api/Products/productExports";
 import { DelProductModal } from "Components/Modals/DelProductModal";
 import { RootState, useAppSelector } from "../../Store/store";
+import { DescriptionPopover } from "Components/Popovers/DescriptionPopover";
 
 interface card {
   prod: ProductsProps;
 }
 
-export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
+export const ProductsAdminCardGrid: React.FC<card> = ({ prod }) => {
   /* CHAKRA MODAL FUNCS */
   const { isOpen, onOpen, onClose } = useDisclosure();
   const modal = {
@@ -19,11 +32,16 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
     onClose,
   };
 
+  /* CHAKRA MEDIA QUERY STATE */
+  const [isLargerThan768] = useMediaQuery("(min-width: 768px");
+
   useEffect(() => {
     setEditedProduct(prod);
   }, [prod]);
 
-  const { categories } = useAppSelector((state: RootState) => state.categoriesSlice);
+  const { categories } = useAppSelector(
+    (state: RootState) => state.categoriesSlice
+  );
   const [editStatus, setEditStatus] = useState(false);
 
   const [editedProduct, setEditedProduct] = useState({
@@ -130,42 +148,72 @@ export const ProductsAdminCard: React.FC<card> = ({ prod }) => {
         onChange={(e) => editProductHandler(e)}
       ></Input>
       <Box flex={"1"}>
-        <Button mr={1} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editProduct}>
+        <Button
+          mr={1}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editProduct}
+        >
           <TiTick />
         </Button>
-        <Button bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={cancelEdit}>
+        <Button
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={cancelEdit}
+        >
           <TiCancel />
         </Button>
       </Box>
     </Flex>
   ) : (
-    <Flex
+    <Grid
       w={"100%"}
       borderWidth={"1px 1px 0px 1px"}
       borderColor={"#B83280"}
       py={1}
       textAlign={"center"}
-      align={"center"}
+      templateAreas={`"Name Name Name Name"
+                      "Price Category Description Buttons"`}
+      templateColumns={"2.5fr 2.5fr 4.5fr 2.5fr"}
     >
-      <Box mx={1} flex={"3"}>
-        <Text>{editedProduct.name}</Text>
-      </Box>
-      <Text flex={"1"}>{editedProduct.price}</Text>
-      <Text mx={1} flex={"1"}>
-        {editedProduct.category?.name}
-      </Text>
-      <Text flex={"3"} display={{ base: "none", md: "flex" }}>
-        {editedProduct.description}
-      </Text>
-      <Box flex={"2"}>
-        <Button mr={1} size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={editSwitch}>
+      <GridItem mx={1} area={"Name"}>
+        <Text color={"#B83280"}>{editedProduct.name}</Text>
+      </GridItem>
+      <GridItem area={"Price"}>
+        <Text>${editedProduct.price}</Text>
+      </GridItem>
+      <GridItem area={"Category"}>
+        <Text mx={1}>{editedProduct.category?.name}</Text>
+      </GridItem>
+      <GridItem area={"Description"} alignSelf={"center"}>
+        {isLargerThan768 ? (
+          <Text textAlign={"center"}>{editedProduct.description}</Text>
+        ) : (
+          <Flex justify={"center"}>
+            <DescriptionPopover prod={prod} />
+          </Flex>
+        )}
+      </GridItem>
+      <GridItem area={"Buttons"}>
+        <Button
+          mr={1}
+          size={"xs"}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={editSwitch}
+        >
           <RiEdit2Fill />
         </Button>
-        <Button size={"xs"} bgColor={"#f0d3e9"} _hover={{ bgColor: "#B83280" }} onClick={onOpen}>
+        <Button
+          size={"xs"}
+          bgColor={"#f0d3e9"}
+          _hover={{ bgColor: "#B83280" }}
+          onClick={onOpen}
+        >
           <RiDeleteBin7Fill />
         </Button>
-      </Box>
+      </GridItem>
       <DelProductModal modal={modal} id={prod._id} />
-    </Flex>
+    </Grid>
   );
 };

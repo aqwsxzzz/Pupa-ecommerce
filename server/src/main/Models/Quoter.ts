@@ -1,17 +1,27 @@
 import { Schema, model } from "mongoose";
 
-interface Quoter {
-  clothPrice: string;
-  threadPrice: string;
-  grifaPrice: string;
-  tapePrice: string;
+export interface Quoter {
+  cloth: [
+    {
+      clothType: string;
+      rollWidth: number; //in centimeters
+      price: number;
+    }
+  ];
+  grifaPrice: number;
+  cordPrice: number;
 }
 
 const QuoterInfoSchema = new Schema<Quoter>({
-  clothPrice: String,
-  threadPrice: String,
-  grifaPrice: String,
-  tapePrice: String,
+  cloth: [
+    {
+      clothType: String,
+      rollWidth: Number,
+      price: Number,
+    },
+  ],
+  grifaPrice: Number,
+  cordPrice: Number,
 });
 
 export const QuoterModel = model<Quoter>("QuoterInfo", QuoterInfoSchema);
