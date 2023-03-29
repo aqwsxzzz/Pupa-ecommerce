@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { bagCostsSetState, bagInfoSetState } from "Utils/Interfaces";
+import { bagInfoSetState } from "Utils/Interfaces";
 
 /* Calculate the cost of the cord used. */
 const cordCostCalc = (bagInfo: bagInfoSetState, quoterPrices: AxiosResponse<any, any> | undefined) => {
@@ -9,11 +9,6 @@ const cordCostCalc = (bagInfo: bagInfoSetState, quoterPrices: AxiosResponse<any,
   return Math.ceil(
     (bagInfo.bagWidth * 4 + 20) * (quoterPrices?.data[0].cordPrice / 100) * bagInfo.bagQuantity
   );
-};
-/* Thread used cant be calculated in centimeters. 
-For that we calculate $40 for every 50 bags */
-const threadCostCalc = (bagInfo: bagInfoSetState) => {
-  return Math.ceil(bagInfo.bagQuantity / 50) * 40;
 };
 
 /* Calculate grifa's cost depending on the bags's amount */
@@ -52,7 +47,6 @@ const workforceCalc = (
 
 export const calcs = {
   cordCostCalc,
-  threadCostCalc,
   grifaCostCalc,
   clothCostCalc,
   workforceCalc,

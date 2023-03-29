@@ -1,12 +1,5 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import { Button, FormControl, FormLabel, Input, VStack, useDisclosure } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { bagInfoSetState, bagCostsSetState } from "Utils/Interfaces";
 import { calcs } from "Components/Quoter/QuoterCalcs";
 import { APIS } from "Api/managersExport";
@@ -16,11 +9,7 @@ export const QuoterForm: React.FC = () => {
   const { data: dataQuoterInfo } = APIS.quoterManager.useGetQuoter();
 
   /* CHAKRA MODAL FUNCS */
-  const {
-    isOpen: isOpenResult,
-    onOpen: onOpenResult,
-    onClose: onCloseResult,
-  } = useDisclosure();
+  const { isOpen: isOpenResult, onOpen: onOpenResult, onClose: onCloseResult } = useDisclosure();
   const modal = {
     isOpen: isOpenResult,
     onClose: onCloseResult,
@@ -65,7 +54,7 @@ export const QuoterForm: React.FC = () => {
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
       const cordCost = calcs.cordCostCalc(bagInfo, dataQuoterInfo);
       const grifaCost = calcs.grifaCostCalc(bagInfo, dataQuoterInfo);
-      const threadCost = calcs.threadCostCalc(bagInfo);
+      const threadCost = bagInfo.bagQuantity;
       const workforceCost = Math.ceil(
         calcs.workforceCalc(bagInfo, clothCost, cordCost, grifaCost, threadCost)
       );
@@ -82,7 +71,7 @@ export const QuoterForm: React.FC = () => {
       const clothCost = calcs.clothCostCalc(bagInfo, dataQuoterInfo);
       const cordCost = 0;
       const grifaCost = calcs.grifaCostCalc(bagInfo, dataQuoterInfo);
-      const threadCost = calcs.threadCostCalc(bagInfo);
+      const threadCost = bagInfo.bagQuantity;
       const workforceCost = Math.ceil(
         calcs.workforceCalc(bagInfo, clothCost, cordCost, grifaCost, threadCost)
       );
@@ -106,14 +95,8 @@ export const QuoterForm: React.FC = () => {
           <Input name="bagWidth" onChange={formHandler} textAlign={"center"} />
           <FormLabel textAlign={"center"}>Largo (cms)</FormLabel>
           <Input name="bagLength" onChange={formHandler} textAlign={"center"} />
-          <FormLabel textAlign={"center"}>
-            Cantidad de Bolsas (unidades)
-          </FormLabel>
-          <Input
-            name="bagQuantity"
-            onChange={formHandler}
-            textAlign={"center"}
-          />
+          <FormLabel textAlign={"center"}>Cantidad de Bolsas (unidades)</FormLabel>
+          <Input name="bagQuantity" onChange={formHandler} textAlign={"center"} />
           {bagInfo.cord ? (
             <Button onClick={cordToggle} colorScheme={"green"}>
               Cordon
@@ -124,11 +107,7 @@ export const QuoterForm: React.FC = () => {
             </Button>
           )}
           <FormLabel textAlign={"center"}> Mano de Obra (%)</FormLabel>
-          <Input
-            name="workforcePercent"
-            onChange={formHandler}
-            textAlign={"center"}
-          />
+          <Input name="workforcePercent" onChange={formHandler} textAlign={"center"} />
           <Button onClick={quote}>Cotizar</Button>
           <QuoterResult bagInfo={bagInfo} bagCosts={bagCosts} modal={modal} />
         </VStack>
