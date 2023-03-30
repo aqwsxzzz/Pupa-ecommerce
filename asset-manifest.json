@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/Pupa-ecommerce/build/static/js/main.83f15ed2.js",
+    "main.js": "/Pupa-ecommerce/build/static/js/main.cb97ccad.js",
     "static/media/HomeCollage.jpg": "/Pupa-ecommerce/build/static/media/HomeCollage.2e6e59807c13dbec8b8d.jpg",
     "static/media/BolsaLienzo1.jpeg": "/Pupa-ecommerce/build/static/media/BolsaLienzo1.654024cb65d5ac627c5a.jpeg",
     "static/media/BolsaSemillas1.jpeg": "/Pupa-ecommerce/build/static/media/BolsaSemillas1.a8792c85c87e39d60567.jpeg",
@@ -8,9 +8,9 @@
     "static/media/Llaveros1.jpeg": "/Pupa-ecommerce/build/static/media/Llaveros1.caefcfc3fdb4c726c5f3.jpeg",
     "static/media/2.jpeg": "/Pupa-ecommerce/build/static/media/2.c64dd23b0426c1f70063.jpeg",
     "index.html": "/Pupa-ecommerce/build/index.html",
-    "main.83f15ed2.js.map": "/Pupa-ecommerce/build/static/js/main.83f15ed2.js.map"
+    "main.cb97ccad.js.map": "/Pupa-ecommerce/build/static/js/main.cb97ccad.js.map"
   },
   "entrypoints": [
-    "static/js/main.83f15ed2.js"
+    "static/js/main.cb97ccad.js"
   ]
 }
