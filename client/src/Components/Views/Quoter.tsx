@@ -6,14 +6,13 @@ import {
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverTrigger,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
 import logo2 from "../../Images/2.jpeg";
-import { DailyPrices } from "Components/Quoter/DailyPrices";
+import { DailyPrices } from "Components/Quoter/dailyPrices";
 import { QuoterForm } from "Components/Quoter/QuoterForm";
 import { useNavigate } from "react-router-dom";
 
@@ -69,11 +68,7 @@ export const Quoter: React.FC = () => {
           </Flex>
           <QuoterForm />
         </Flex>
-        <Flex
-          flex={"1"}
-          justify={"center"}
-          display={{ base: "none", md: "flex" }}
-        >
+        <Flex flex={"1"} justify={"center"} display={{ base: "none", md: "flex" }}>
           <DailyPrices />
         </Flex>
       </Flex>
