@@ -11,20 +11,19 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <PreFetch />
-      <ChakraProvider>
-        <Home />
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <QueryClientProvider client={queryClient}>
+        <PreFetch />
+        <ChakraProvider>
           <Routes>
-            {/* <Route path="/home" element={<Home />} /> */}
+            <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/quoter" element={<Quoter />} />
           </Routes>
-        </BrowserRouter>
-      </ChakraProvider>
-    </QueryClientProvider>
+        </ChakraProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 }
 
