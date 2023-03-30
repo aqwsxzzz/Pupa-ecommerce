@@ -16,7 +16,7 @@ function App() {
         <PreFetch />
         <ChakraProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/quoter" element={<Quoter />} />
