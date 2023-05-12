@@ -1,16 +1,9 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Image,
-  Text,
-  useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import React, { useState } from "react";
 import logo from "../../Images/2.jpeg";
 
 export const WelcomePage: React.FC = () => {
-  const [isLargerThan768] = useMediaQuery("(min-width: 913px");
+  const [isLargerThan913] = useMediaQuery("(min-width: 913px");
   const [localTime, setLocalTime] = useState(new Date().getHours());
 
   let message = "";
@@ -20,9 +13,7 @@ export const WelcomePage: React.FC = () => {
     message = "Buenas tardes!";
   } else message = "Buenas noches!";
 
-  console.log(localTime);
-
-  return isLargerThan768 ? null : (
+  return isLargerThan913 ? null : (
     <Box bgColor={"#f0d3e9"} h={"912px"}>
       <Box>
         <Box borderRadius={"50%"} style={{ overflow: "hidden" }} w={24} h={24}>
