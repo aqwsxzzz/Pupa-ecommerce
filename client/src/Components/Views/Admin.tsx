@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import logo2 from "../../Images/2.jpeg";
 import { ModalProps, ProductsProps } from "../../Utils/Interfaces";
-import { ProductsAdminCard } from "../Admin/ProductsCard";
 import { RootState, useAppSelector } from "Store/store";
 import { CategoriesModal } from "Components/Modals/CategoriesModal";
 import { MdPostAdd } from "react-icons/md";
@@ -95,7 +94,7 @@ export const Admin: React.FC = () => {
             borderColor={"black"}
             style={{ overflow: "hidden" }}
           >
-            <Flex mt={1.5} mb={1}>
+            <Flex mt={1.5} mb={1} onClick={() => navigate("/")}>
               <Image src={logo2} w={8} m={"auto"} />
             </Flex>
           </Box>

@@ -6,6 +6,7 @@ import { Products } from "./Components/Views/Products";
 import { Admin } from "./Components/Views/Admin";
 import { PreFetch } from "Components/General/PreFetch";
 import { Quoter } from "Components/Views/Quoter";
+import { WelcomePage } from "Components/Views/WelcomePage";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,8 @@ function App() {
         <PreFetch />
         <ChakraProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/quoter" element={<Quoter />} />
